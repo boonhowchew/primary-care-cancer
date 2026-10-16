@@ -252,6 +252,14 @@ dl.gl-list dd{margin:0;max-width:none}
 .dir-grid .dir-entry{padding:.4rem 0;border-bottom:1px dashed var(--line)}
 .dir-grid .dir-entry:last-child{border-bottom:1px dashed var(--line)}
 @media print{.x-list,.dir-grid{display:block}.x-list.as-list,dl.gl-list{column-width:auto;column-count:2}}
+/* Module header (v1.5): one quiet meta line instead of pills */
+.partlabel{display:inline-block;color:var(--pc);font-weight:700;font-size:.89rem;letter-spacing:.02em}
+.meta-line{margin:.2rem 0 1rem;font-size:.89rem;color:var(--muted)}
+.meta-line strong{color:var(--ink);font-weight:600}
+.meta-line .draft-note{color:var(--amber)}
+/* Development records (version log, about) in small type */
+p.record{font-size:.89rem;color:var(--muted)}
+.record-box{font-size:.89rem}
 /* Hub */
 .hub-hero{background:linear-gradient(135deg,#F5F7FA,#E6EFF8);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0 1.4rem}
 .hub-hero p{font-size:1.05rem}
@@ -4831,13 +4839,6 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
    "crs"
   ]
  },
- "immune effector cell-associated neurotoxicity syndrome": {
-  "term": "Immune effector cell-associated neurotoxicity syndrome (ICANS)",
-  "def": "Brain dysfunction after CAR-T or similar therapies, ranging from confusion and difficulty with words or writing to seizures and reduced consciousness.",
-  "aliases": [
-   "icans"
-  ]
- },
  "direct oral anticoagulant": {
   "term": "Direct oral anticoagulant (DOAC)",
   "def": "An oral anticoagulant that directly blocks a single clotting factor, such as apixaban, rivaroxaban, edoxaban or dabigatran.",
@@ -5417,13 +5418,6 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
  "watchful waiting": {
   "term": "Watchful waiting",
   "def": "Symptom-guided care without planned curative treatment, for people unlikely to benefit from radical treatment because of age or other illness."
- },
- "active surveillance": {
-  "term": "Active surveillance",
-  "def": "Regular monitoring of a low-risk cancer with tests, with the plan to offer curative treatment if the cancer shows signs of progressing.",
-  "aliases": [
-   "active monitoring"
-  ]
  },
  "hyperthermia": {
   "term": "Hyperthermia",
@@ -6732,7 +6726,7 @@ var ICON={redflag:"⚠",do:"✓",dont:"✕",my:"MY",eo:"EO",safety:"↺"};
 var CTITLE={redflag:"Red flag",do:"Do",dont:"Do not",my:"Malaysian guidance",eo:"Expert opinion",safety:"Safety-net"};
 function block(b){
   switch(b.type){
-  case "p": return h("p",null,inline(b.text));
+  case "p": return h("p",b.small?{"class":"record"}:null,inline(b.text));
   case "list": {var l=h(b.ordered?"ol":"ul");(b.items||[]).forEach(function(i){l.appendChild(h("li",null,inline(i)));});if(b.title){var w=h("div");w.appendChild(h("p",null,"<strong>"+inline(b.title)+"</strong>"));w.appendChild(l);return w;}return l;}
   case "callout": {var c=h("div",{"class":"callout "+(b.kind||""),"role":b.kind==="redflag"||b.kind==="dont"?"note":"note"});
     c.appendChild(h("div",{"class":"ctitle"},'<span class="ico" aria-hidden="true">'+(ICON[b.kind]||"•")+'</span><span>'+inline(b.title||CTITLE[b.kind]||"")+'</span>'));
@@ -6757,6 +6751,7 @@ function block(b){
   case "tree": return tree(b);
   case "checker": return checker(b);
   case "cpdSummary": return cpdSummary(b);
+  case "collapse": {var dd=h("details",{"class":"collapse"});dd.appendChild(h("summary",null,inline(b.summary||"Show")));var ii=h("div",{"class":"inner"});(b.blocks||[]).forEach(function(x){ii.appendChild(block(x));});dd.appendChild(ii);return dd;}
   case "explorer": return explorer(b);
   case "builder": return builder(b);
   default: return h("p",null,inline(b.text||""));
@@ -6829,7 +6824,7 @@ function plainRaw(t){return (String(t).replace(/\[\[[^\]]+\]\]/g,"").replace(/\(
 function plainTitle(t){return esc(plainRaw(t));}
 function partOf(id){var m=(NAV.modules||[]).filter(function(x){return x.id===id;})[0];return m?(NAV.parts||[]).filter(function(p){return p.key===m.part;})[0]:null;}
 function applyPart(){var p=partOf(META.id);if(!p)return;document.body.style.setProperty("--pc",p.colour);document.body.style.setProperty("--pt",p.tint);
-  var hd=document.querySelector("main>header p.small");if(hd){hd.innerHTML='<span class="partpill">'+esc(META.part||p.label)+'</span>';}}
+  var hd=document.querySelector("main>header p.small");if(hd){hd.innerHTML='<span class="partlabel">'+esc(META.part||p.label)+'</span>';}}
 function siteNav(tn,toc){tn.innerHTML="";tn.setAttribute("aria-label","Modules and contents");
   var cl=h("button",{type:"button","class":"nav-close"},"Close ✕");cl.onclick=function(){document.body.classList.remove("nav-open");};tn.appendChild(cl);
   tn.appendChild(h("p",{"class":"sn-h"},"All modules"));
@@ -7045,7 +7040,8 @@ function build(){
       else if(k==="drill")walk(C.drill);else if(k==="quiz")walk(C.quiz);else if(k==="flash")walk(C.flashcards);else if(k==="takehome")walk(C.takehome);});})();
   if(META.id&&META.id!=="M0"){var so=store();so._t=META.title;so._f=(location.pathname.split("/").pop()||"");so._q=(C.quiz||[]).length;so._d=C.drill?C.drill.items.length:0;so._c=(C.cases||[]).map(function(c){return c.id;});so._v=META.version;save(so);}
   var hd=h("header");hd.appendChild(h("p",{"class":"small",style:"margin:0;color:var(--muted)"},esc(META.part||"")));hd.appendChild(h("h1",null,esc(META.title||"")));
-  var mr=h("div",{"class":"meta-row"});mr.innerHTML='<span class="pill verified">Evidence last verified: '+esc(META.verified||"")+'</span><span class="pill">Version '+esc(META.version||"")+'</span><span class="pill">About '+esc(META.time||"")+'</span>'+(META.status?'<span class="pill draft">'+esc(META.status)+'</span>':'');hd.appendChild(mr);m.appendChild(hd);
+  var ver=String(META.version||"").replace(/\s*\(.*\)\s*$/,"");var bits=['Evidence last verified <strong>'+esc(META.verified||"")+'</strong>'];if(ver)bits.push("Version "+esc(ver));if(META.time)bits.push("About "+esc(META.time));if(META.status)bits.push('<span class="draft-note">'+esc(META.status.replace(/ — /," ").replace(/^Draft not/,"Draft, not"))+'</span>');
+  var mr=h("p",{"class":"meta-line"},bits.join(' <span aria-hidden="true">·</span> '));hd.appendChild(mr);m.appendChild(hd);
   var toc=[];
   function sec(id,title){var s=h("section",{id:id,"aria-labelledby":id+"-h"});s.appendChild(h("h2",{id:id+"-h"},inline(title)));m.appendChild(s);toc.push([id,title]);return s;}
   var o=h("section",{"class":"outcomes",id:"outcomes","aria-labelledby":"outcomes-h"});o.appendChild(h("h2",{id:"outcomes-h",style:"border:0;margin-top:0;padding-top:0"},"Learning outcomes"));o.appendChild(h("p",null,"By the end of this module you will be able to:"));var ol=h("ol");(C.outcomes||[]).forEach(function(x){ol.appendChild(h("li",null,inline(x)));});o.appendChild(ol);m.appendChild(o);toc.push(["outcomes","Learning outcomes"]);
