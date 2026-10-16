@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Primary Care for Cancers: an evidence-current, interactive resource for family medicine practitioners in Malaysia and beyond.">
+<title>Primary Care for Cancers — interactive learning resource</title>
+<style>
+/* Primary Care for Cancers — shared stylesheet (engine v1.0) */
+:root{
+  --ink:#1B1F24; --muted:#4A5560; --navy:#1F3A5F; --navy-2:#2B4C77; --bg:#FFFFFF; --panel:#F5F7FA; --line:#D5DCE4;
+  --red:#A4161A; --red-bg:#FDECEC; --amber:#7A4B00; --amber-bg:#FFF4D6; --green:#1E6B34; --green-bg:#E7F4EA;
+  --my:#5B2A86; --my-bg:#F1EAF8; --int:#0B5563; --int-bg:#E3F2F4; --eo:#5A4A00; --eo-bg:#F7F1D6; --focus:#C2410C;
+  --radius:10px; --gap:1.25rem; --measure:72ch;
+  font-size:112.5%; /* 18px base */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+a{color:var(--navy);text-underline-offset:2px}
+a:hover{color:var(--navy-2)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:.5rem 1rem;z-index:10}
+.skip:focus{left:1rem}
+h1,h2,h3{line-height:1.25;color:var(--navy)}
+h1{font-size:1.78rem;margin:.2rem 0 .6rem}
+h2{font-size:1.33rem;margin:2.2rem 0 .8rem;padding-top:.4rem;border-top:2px solid var(--line)}
+h3{font-size:1.11rem;margin:1.4rem 0 .5rem}
+p,li{max-width:var(--measure)}
+small,.small{font-size:.78rem}
+/* Header */
+.site-head{background:var(--navy);color:#fff}
+.site-head .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1.5rem;padding:.7rem 1.25rem;max-width:1200px;margin:0 auto}
+.site-head a{color:#fff;text-decoration:none;font-weight:600}
+.site-head nav a{font-weight:500;margin-left:1rem;text-decoration:underline;text-underline-offset:3px}
+.disclaimer{background:var(--amber-bg);color:var(--amber);border-bottom:1px solid #E9D9A8}
+.disclaimer .wrap{max-width:1200px;margin:0 auto;padding:.55rem 1.25rem;font-size:.89rem}
+/* Layout */
+.layout{max-width:1200px;margin:0 auto;padding:1rem 1.25rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
+@media(min-width:1000px){.layout{grid-template-columns:250px minmax(0,1fr)}}
+.toc{display:none}
+@media(min-width:1000px){.toc{display:block;position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;font-size:.89rem;border-right:1px solid var(--line);padding-right:1rem}}
+.toc ol{padding-left:1.1rem;margin:.3rem 0}
+.toc li{margin:.25rem 0}
+.toc a{text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.toc .progress{margin-top:1rem;padding:.6rem;background:var(--panel);border-radius:var(--radius);font-size:.83rem}
+main{min-width:0}
+.meta-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 1rem}
+.pill{display:inline-block;padding:.15rem .6rem;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:.83rem;color:var(--muted)}
+.pill.verified{background:var(--green-bg);color:var(--green);border-color:#BFDCC7}
+.pill.draft{background:var(--amber-bg);color:var(--amber);border-color:#E9D9A8}
+/* Cards grid: equal height, symmetric */
+.grid{display:grid;gap:var(--gap);grid-template-columns:1fr}
+@media(min-width:700px){.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;height:100%;display:flex;flex-direction:column}
+.card h3{margin-top:0}
+.card .foot{margin-top:auto;padding-top:.6rem}
+/* Outcomes */
+.outcomes{background:var(--panel);border-radius:var(--radius);padding:1rem 1.25rem}
+.outcomes ol{margin:.3rem 0 0;padding-left:1.3rem}
+/* Callouts */
+.callout{border-left:6px solid var(--line);background:var(--panel);border-radius:0 var(--radius) var(--radius) 0;padding:.8rem 1rem;margin:1rem 0}
+.callout .ctitle{font-weight:700;display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem}
+.callout .ctitle .ico{font-size:1.05rem;line-height:1}
+.callout p{margin:.3rem 0}
+.callout.redflag{border-color:var(--red);background:var(--red-bg)} .callout.redflag .ctitle{color:var(--red)}
+.callout.do{border-color:var(--green);background:var(--green-bg)} .callout.do .ctitle{color:var(--green)}
+.callout.dont{border-color:var(--red);background:var(--red-bg)} .callout.dont .ctitle{color:var(--red)}
+.callout.my{border-color:var(--my);background:var(--my-bg)} .callout.my .ctitle{color:var(--my)}
+.callout.eo{border-color:var(--eo);background:var(--eo-bg)} .callout.eo .ctitle{color:var(--eo)}
+.callout.safety{border-color:var(--int);background:var(--int-bg)} .callout.safety .ctitle{color:var(--int)}
+/* Evidence chips */
+.chip{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.02em;padding:.05rem .45rem;border-radius:6px;vertical-align:middle;margin-left:.25rem;white-space:nowrap}
+.chip.my{background:var(--my-bg);color:var(--my);border:1px solid #D9C6EC}
+.chip.int{background:var(--int-bg);color:var(--int);border:1px solid #B9DDE2}
+.chip.eo{background:var(--eo-bg);color:var(--eo);border:1px solid #E5D9A3}
+.chip.sr{background:#EEF1F6;color:var(--navy);border:1px solid #CCD6E4}
+sup.cite a{font-size:.72rem;text-decoration:none;padding:0 .1rem}
+/* Comparison (guidelines differ) */
+.compare{display:grid;gap:.75rem;grid-template-columns:1fr;margin:1rem 0}
+@media(min-width:700px){.compare{grid-template-columns:repeat(var(--n,2),minmax(0,1fr))}}
+.compare .col{border:1px solid var(--line);border-radius:var(--radius);padding:.75rem .9rem;background:#fff;height:100%}
+.compare .col .body{font-weight:700;color:var(--navy);margin-bottom:.25rem}
+.compare-title{font-weight:700;color:var(--int);margin-top:1rem}
+/* Tables */
+.tablewrap{overflow-x:auto;margin:1rem 0;border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:.89rem}
+th,td{padding:.55rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--navy);color:#fff;position:sticky;top:0}
+tbody tr:nth-child(even){background:#FAFBFC}
+caption{caption-side:bottom;text-align:left;font-size:.78rem;color:var(--muted);padding:.5rem .7rem}
+.urg{font-weight:700;white-space:nowrap}
+.urg.e{color:var(--red)} .urg.s{color:var(--amber)} .urg.r{color:var(--green)}
+/* Buttons */
+button,.btn{font:inherit;font-size:.94rem;border-radius:8px;border:1px solid var(--navy);background:#fff;color:var(--navy);padding:.45rem .9rem;cursor:pointer;min-height:44px}
+button.primary{background:var(--navy);color:#fff}
+button:hover{background:#EEF3F9} button.primary:hover{background:var(--navy-2)}
+button[disabled]{opacity:.55;cursor:not-allowed}
+.btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.75rem 0}
+/* Case player */
+.case{border:2px solid var(--navy);border-radius:var(--radius);padding:1rem 1.2rem;margin:1rem 0;background:#fff}
+.case .who{font-weight:700;color:var(--navy)}
+.case .scene{margin:.5rem 0}
+.choices{display:grid;gap:.6rem;margin:.75rem 0}
+.choices button{text-align:left;width:100%}
+.feedback{margin:.75rem 0;padding:.7rem .9rem;border-radius:8px}
+.feedback.good{background:var(--green-bg);border:1px solid #BFDCC7}
+.feedback.bad{background:var(--red-bg);border:1px solid #EFC2C2}
+.feedback.mid{background:var(--amber-bg);border:1px solid #E9D9A8}
+.feedback .verdict{font-weight:700}
+.path{font-size:.83rem;color:var(--muted)}
+/* Drill */
+.drill-card{border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.2rem;background:#fff}
+.drill-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy)}
+fieldset{border:1px solid var(--line);border-radius:8px;padding:.6rem .9rem;margin:.75rem 0}
+legend{font-weight:700;color:var(--navy);padding:0 .3rem}
+.opt{display:flex;gap:.5rem;align-items:flex-start;margin:.35rem 0}
+.opt input{margin-top:.35rem;width:1.1rem;height:1.1rem}
+/* Quiz */
+.q{border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.2rem;margin:1rem 0;background:#fff}
+.q .stem{font-weight:600}
+.q .expl{margin-top:.6rem}
+.score{font-weight:700;color:var(--navy)}
+/* Flashcards */
+.flash{display:grid;gap:1rem}
+.fcard{border:2px solid var(--int);border-radius:var(--radius);min-height:9rem;padding:1.1rem 1.25rem;background:var(--int-bg);display:flex;flex-direction:column;justify-content:center}
+.fcard .side{font-size:.78rem;font-weight:700;color:var(--int);text-transform:uppercase;letter-spacing:.04em}
+.fcard .txt{font-size:1.05rem;margin-top:.3rem}
+/* Take-home */
+.takehome{background:var(--navy);color:#fff;border-radius:var(--radius);padding:1rem 1.25rem}
+.takehome h2{color:#fff;border:0;margin-top:0;padding-top:0}
+.takehome li{margin:.35rem 0}
+/* Accordions */
+details{border:1px solid var(--line);border-radius:var(--radius);margin:.6rem 0;background:#fff}
+summary{cursor:pointer;padding:.7rem 1rem;font-weight:600;color:var(--navy);list-style-position:outside}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .inner{padding:.6rem 1rem 1rem}
+.dir-entry{padding:.6rem 0;border-bottom:1px dashed var(--line)}
+.dir-entry:last-child{border-bottom:0}
+.dir-entry .nm{font-weight:700}
+.dir-entry .meta{font-size:.83rem;color:var(--muted)}
+/* References */
+.refs ol{font-size:.78rem;padding-left:1.4rem}
+.refs li{margin:.3rem 0;max-width:none}
+.refs .ver{color:var(--muted)}
+/* SVG diagrams */
+figure{margin:1rem 0} figcaption{font-size:.78rem;color:var(--muted)}
+svg text{font-family:inherit}
+/* Footer */
+.site-foot{background:var(--panel);border-top:1px solid var(--line);font-size:.83rem;color:var(--muted)}
+.site-foot .wrap{max-width:1200px;margin:0 auto;padding:1.2rem 1.25rem}
+textarea{width:100%;min-height:7rem;font:inherit;padding:.6rem;border-radius:8px;border:1px solid var(--line)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.print-only{display:none}
+/* Print */
+@media print{
+  :root{font-size:11pt}
+  .site-head nav,.toc,.btnrow,button,.skip,.noprint{display:none!important}
+  .layout{display:block;padding:0}
+  .print-only{display:block}
+  details{border:0} details>summary{list-style:none} details .inner{padding:0}
+  .case,.q,.drill-card,.card,.callout,.tablewrap{break-inside:avoid}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.7rem;color:#555}
+  thead th{background:#ddd!important;color:#000!important}
+  .takehome{background:#fff;color:#000;border:2px solid #000} .takehome h2{color:#000}
+}
+
+.hero{background:var(--panel);border-bottom:1px solid var(--line)}
+.hero .wrap{max-width:1200px;margin:0 auto;padding:1.5rem 1.25rem}
+main.hub{max-width:1200px;margin:0 auto;padding:0 1.25rem 3rem}
+.card .btn{display:inline-block;text-decoration:none;font-weight:600}
+</style></head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-head"><div class="wrap"><a href="index.html">Primary Care for Cancers</a><nav aria-label="Site"><a href="#modules">Modules</a><a href="#about">About</a></nav></div></header>
+<div class="disclaimer" role="note"><div class="wrap"><strong>Educational resource.</strong> It does not replace local guidelines, specialist advice or clinical judgement.</div></div>
+<div class="hero"><div class="wrap">
+<h1>Primary Care for Cancers</h1>
+<p>Practical, evidence-current learning for GPs, family medicine specialists and trainees, and for nurses, pharmacists and allied health professionals. Organised around what you do in the consultation: recognise, refer, share care, follow up, support and safety-net.</p>
+<div class="meta-row"><span class="pill verified">Evidence last verified: 15 October 2026</span><span class="pill">Version 0.1</span><span class="pill draft">Pilot — under author review</span></div>
+</div></div>
+<main id="main" class="hub" tabindex="-1">
+<section id="modules" aria-label="Modules">
+<h2>Orientation</h2>
+<div class="grid two">
+<div class="card"><h3>Module 0: Start here: using this resource</h3><p>Choose a pathway by role or by today's clinical question; learn the evidence labels, urgency markers and glossary pop-ups.</p><p class="small">About 10 minutes</p><div class="foot"><a class="btn" href="m00-start-here.html">Start here</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Site tools</h3><p>Search every glossary term, browse the evidence register by module, and print your CPD summary — all kept in your browser only.</p><p class="small">Glossary · Evidence register · CPD</p><div class="foot"><a class="btn" href="m00-start-here.html#glossary">Glossary</a> <a class="btn" href="m00-start-here.html#register">Evidence register</a> <a class="btn" href="m00-start-here.html#cpdsum">My CPD</a></div></div>
+</div>
+<h2>A. Understand</h2>
+<div class="grid two">
+<div class="card"><h3>Module 1: Cancer patterns in the world and in Malaysia, and how cancer is staged</h3><p>Know the global and local burden; read stage and grade; understand late presentation; plan for equity.</p><p class="small">About 45–60 minutes</p><div class="foot"><a class="btn" href="m01-cancer-patterns-staging.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 2: What causes cancer: risk factors and carcinogens</h3><p>Explain causes; identify modifiable risks; counsel on hazards.</p><p class="small">About 35–45 minutes</p><div class="foot"><a class="btn" href="m02-causes-risk-factors.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+</div>
+<h2>B. Prevent and detect early</h2>
+<div class="grid three">
+<div class="card"><h3>Module 3: Hereditary cancer risk and genetics referral</h3><p>Identify inherited risk; refer for genetics; coordinate risk management.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m03-hereditary-risk-genetics.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 4: Prevention in the consultation</h3><p>Give brief prevention advice; vaccinate; avoid ineffective chemoprevention.</p><p class="small">About 35–45 minutes</p><div class="foot"><a class="btn" href="m04-prevention.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 5: Screening and early detection</h3><p>Offer screening; support shared decisions; act on results.</p><p class="small">About 45–60 minutes</p><div class="foot"><a class="btn" href="m05-screening-early-detection.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+</div>
+<h2>C. Recognise and refer</h2>
+<div class="grid two">
+<div class="card"><h3>Module 6: Recognising possible cancer and referring</h3><p>Recognise; investigate; refer at the right speed; safety-net.</p><p class="small">About 30–40 minutes</p><div class="foot"><a class="btn" href="m06-recognise-refer.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 7: Breaking bad news and the referral conversation</h3><p>Break bad news; prepare for referral; support at diagnosis.</p><p class="small">About 30–40 minutes</p><div class="foot"><a class="btn" href="m07-breaking-bad-news.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+</div>
+<h2>D. Share care during treatment</h2>
+<div class="grid three">
+<div class="card"><h3>Module 8: Cancer treatments: what primary care needs to know</h3><p>Understand treatments; manage medicines and comorbidity; discuss CAM.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m08-cancer-treatments.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 9: Side-effects and toxicity triage</h3><p>Triage side-effects; manage mild toxicity; escalate early.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m09-side-effects-triage.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 10: Oncologic emergencies: recognise and act</h3><p>Recognise emergencies; act first; refer fast.</p><p class="small">About 30–40 minutes</p><div class="foot"><a class="btn" href="m10-oncologic-emergencies.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+</div>
+<h2>E. Follow up and support</h2>
+<div class="grid two">
+<div class="card"><h3>Module 11: Survivorship and shared follow-up care</h3><p>Share follow-up care; manage late effects; promote recovery and return to life.</p><p class="small">About 60–75 minutes</p><div class="foot"><a class="btn" href="m11-survivorship-shared-care.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 12: Psychosocial and spiritual care</h3><p>Screen distress; support mental health; respect spiritual needs; support carers.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m12-psychosocial-spiritual-care.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 13: Cancer in older adults and multimorbidity</h3><p>Assess older adults; manage multimorbidity; align care with goals.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m13-older-adults-multimorbidity.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<div class="card"><h3>Module 14: Palliative and end-of-life care in primary care</h3><p>Identify palliative needs early; control symptoms; plan end-of-life care at home.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m14-palliative-end-of-life.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+</div>
+
+</section>
+<section id="about" aria-labelledby="about-h">
+<h2 id="about-h">About this resource</h2>
+<div class="grid three">
+<div class="card"><h3>Evidence policy</h3><p>Malaysian guidance and data come first; WHO, NICE, USPSTF, ACS, ESMO and others are shown side by side and never merged. Every recommendation names its source, body and year, and expert opinion is labelled.</p></div>
+<div class="card"><h3>Author</h3><p>Prof Boon-How Chew, Department of Family Medicine, Universiti Putra Malaysia. Builds on Chew &amp; Taher (FMCH 2013; JFMCH 2014) and the ebook <em>Primary Care for Cancers</em> (v4R2025).</p></div>
+<div class="card"><h3>Privacy and use</h3><p>No tracking, cookies or external requests. Progress is kept only in your browser. AI-assisted drafting and evidence checking under the author's direction; all content reviewed by the author.</p></div>
+</div>
+</section>
+</main>
+<footer class="site-foot"><div class="wrap"><p>Version 0.1 · Evidence last verified 15 October 2026 · Educational resource; not a substitute for local guidelines, specialist advice or clinical judgement.</p></div></footer>
+</body></html>
