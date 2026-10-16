@@ -28,7 +28,7 @@ h1,h2,h3{line-height:1.25;color:var(--navy)}
 h1{font-size:1.78rem;margin:.2rem 0 .6rem}
 h2{font-size:1.33rem;margin:2.2rem 0 .8rem;padding-top:.4rem;border-top:2px solid var(--line)}
 h3{font-size:1.11rem;margin:1.4rem 0 .5rem}
-p,li{max-width:var(--measure)}
+p,li{max-width:none}
 small,.small{font-size:.78rem}
 /* Header */
 .site-head{background:var(--navy);color:#fff}
@@ -39,13 +39,9 @@ small,.small{font-size:.78rem}
 .disclaimer .wrap{max-width:1200px;margin:0 auto;padding:.55rem 1.25rem;font-size:.89rem}
 /* Layout */
 .layout{max-width:1200px;margin:0 auto;padding:1rem 1.25rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
-@media(min-width:1000px){.layout{grid-template-columns:250px minmax(0,1fr)}}
+@media(min-width:1000px){.layout{grid-template-columns:300px minmax(0,1fr)}}
 .toc{display:none}
-@media(min-width:1000px){.toc{display:block;position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;font-size:.89rem;border-right:1px solid var(--line);padding-right:1rem}}
-.toc ol{padding-left:1.1rem;margin:.3rem 0}
-.toc li{margin:.25rem 0}
-.toc a{text-decoration:none}
-.toc a:hover{text-decoration:underline}
+@media(min-width:1000px){.toc{display:block;position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;padding-right:.6rem}}
 .toc .progress{margin-top:1rem;padding:.6rem;background:var(--panel);border-radius:var(--radius);font-size:.83rem}
 main{min-width:0}
 .meta-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 1rem}
@@ -157,9 +153,58 @@ textarea{width:100%;min-height:7rem;font:inherit;padding:.6rem;border-radius:8px
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .print-only{display:none}
 /* Print */
+/* ---- v1.3: part colours, site navigation, line wrapping ---- */
+:root{--pc:#1F3A5F;--pt:#F5F7FA}
+p,li,dd,td,th,figcaption,.sl,.small,.lead{text-wrap:pretty}
+h1,h2,h3,caption,summary,.ctitle,.compare-title,.card h3,.tl-label,.br-l,.sn-t{text-wrap:balance}
+.site-foot p,.disclaimer p,.disclaimer .wrap{max-width:none}
+.site-foot .wrap{display:grid;gap:.15rem 2rem}
+@media(min-width:900px){.site-foot .wrap{grid-template-columns:1fr 1fr}.site-foot .wrap p:first-child{grid-column:1/-1}}
+.site-foot p{margin:.35rem 0}
+.sn-h{font-weight:700;color:var(--navy);margin:0 0 .3rem;font-size:1rem}
+.sn-part{border-left:5px solid var(--pc);background:var(--pt);border-radius:0 8px 8px 0;padding:.35rem .45rem .45rem .55rem;margin:.45rem 0}
+.sn-pl{margin:0 0 .15rem;font-size:.78rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--pc);text-wrap:balance}
+ol.sn-list{list-style:none;margin:0;padding:0}
+.sn-list>li{margin:.08rem 0;max-width:none}
+.sn-list>li>a{display:grid;grid-template-columns:2rem 1fr;gap:.4rem;align-items:start;padding:.2rem .3rem;border-radius:6px;color:var(--ink);text-decoration:none;font-size:.89rem;line-height:1.35}
+.sn-num{display:block;text-align:center;font-weight:700;font-size:.78rem;line-height:1.5;color:#fff;background:var(--pc);border-radius:999px}
+.sn-list>li>a:hover{background:#fff;text-decoration:underline}
+.sn-list>li.current>a{background:#fff;font-weight:700;box-shadow:inset 0 0 0 2px var(--pc)}
+ol.sn-toc{list-style:none;counter-reset:s;margin:.3rem 0 .4rem 1rem;padding:0 0 0 .4rem;border-left:2px solid var(--pc)}
+ol.sn-toc li{counter-increment:s;margin:0;max-width:none}
+ol.sn-toc a{display:grid;grid-template-columns:2rem 1fr;gap:.2rem;font-size:.86rem;line-height:1.35;padding:.14rem .25rem;color:var(--ink);text-decoration:none;border-radius:5px}
+ol.sn-toc a::before{content:counter(s) ".";color:var(--pc);font-weight:700;text-align:right;padding-right:.25rem}
+ol.sn-toc a:hover{background:#fff;text-decoration:underline}
+.nav-toggle{display:none}
+@media(max-width:999.98px){
+  .site-head{position:sticky;top:0;z-index:55}
+  .nav-toggle{display:inline-flex;align-items:center;gap:.4rem;background:#fff;color:var(--navy);border:0;border-radius:8px;font:inherit;font-weight:700;padding:.35rem .8rem;min-height:40px;cursor:pointer}
+  body.nav-open .toc{display:block;position:fixed;top:0;bottom:0;left:0;width:min(90vw,360px);background:#fff;z-index:60;overflow:auto;padding:1rem;box-shadow:0 0 0 100vmax rgba(0,0,0,.35)}
+  .toc .nav-close{display:block}
+}
+.toc .nav-close{display:none;margin:0 0 .6rem auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;font:inherit;padding:.3rem .7rem;cursor:pointer}
+main>header{border-left:6px solid var(--pc);padding-left:1rem}
+.partpill{display:inline-block;background:var(--pt);color:var(--pc);border:1px solid var(--pc);border-radius:999px;padding:.05rem .7rem;font-size:.83rem;font-weight:700}
+/* Hub */
+.hub-hero{background:linear-gradient(135deg,#F5F7FA,#E6EFF8);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0 1.4rem}
+.hub-hero p{font-size:1.05rem}
+.legend-parts{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 0;padding:0;list-style:none}
+.legend-parts a{display:inline-block;background:var(--pt);color:var(--pc);border:1px solid var(--pc);border-radius:999px;padding:.15rem .8rem;font-weight:700;text-decoration:none;font-size:.89rem}
+.hub-part{border-top:6px solid var(--pc);background:var(--pt);border-radius:var(--radius);padding:.6rem 1.1rem 1.1rem;margin:1.4rem 0}
+.hub-part>h2{border:0;margin:.4rem 0 .2rem;color:var(--pc)}
+.hub-part>p.lead{margin:.1rem 0 .8rem;color:var(--ink)}
+.mcard{background:#fff;border:1px solid var(--line);border-left:6px solid var(--pc);border-radius:var(--radius);padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.4rem;height:100%}
+.mcard h3{margin:0;color:var(--pc);font-size:1.11rem}
+.mcard h3 .sn-num{display:inline-block;min-width:2rem;margin-right:.45rem;vertical-align:.1rem}
+.mcard p{margin:0}
+.mcard .meta{display:flex;flex-wrap:wrap;gap:.3rem .9rem;color:var(--muted);font-size:.89rem}
+.mcard ul{margin:.1rem 0 0;padding-left:1.1rem} .mcard li{margin:.1rem 0}
+.mcard .label{font-weight:700;color:var(--ink)}
+.mcard .foot{margin-top:auto;padding-top:.5rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
 @media print{
   :root{font-size:11pt}
-  .site-head nav,.toc,.btnrow,button,.skip,.noprint{display:none!important}
+  .site-head nav,.toc,.btnrow,button,.skip,.noprint,.nav-toggle{display:none!important}
+  main>header{border-left:0;padding-left:0}
   .layout{display:block;padding:0}
   .print-only{display:block}
   details{border:0} details>summary{list-style:none} details .inner{padding:0}
@@ -213,7 +258,8 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
 <header class="site-head">
   <div class="wrap">
     <a href="index.html">Primary Care for Cancers</a>
-    <nav aria-label="Site"><a href="index.html">All modules</a><a href="#references">References</a><a href="#help">Where to get help</a></nav>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="toc">☰ Modules</button>
+    <nav aria-label="Site"><a href="index.html">Home</a><a href="m00-start-here.html#glossary">Glossary</a><a href="#references">References</a><a href="m14-palliative-end-of-life.html#help">Where to get help</a></nav>
   </div>
 </header>
 <div class="disclaimer" role="note">
@@ -226,12 +272,176 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
 <footer class="site-foot">
   <div class="wrap">
     <p id="foot-meta"></p>
-    <p>Author and editor: Prof Boon-How Chew, Department of Family Medicine, Universiti Putra Malaysia. Builds on Chew &amp; Taher, <em>Family Medicine and Community Health</em> 2013 and <em>Journal of Family Medicine &amp; Community Health</em> 2014, and the ebook <em>Primary Care for Cancers</em> (v4R2025).</p>
-    <p>Disclaimer: this is an educational resource. It does not replace local guidelines, specialist advice or clinical judgement. Drug doses shown for awareness are labelled; always check the current local formulary and protocol.</p>
-    <p>Privacy: this page makes no external requests and uses no cookies or analytics. Your progress and notes are stored only in this browser.</p>
-    <p>AI-use statement: drafting and evidence checking were assisted by an AI system (Claude, Anthropic) under the author's direction; all content is reviewed and approved by the author. Licence: CC BY-NC 4.0 (proposed, matching the original papers; to be confirmed by the author).</p>
+    <p><strong>Author:</strong> Prof Dr Boon-How Chew, Consultant Family Medicine Specialist, Department of Family Medicine, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia. Based on the author's ebook <em>Primary Care for Cancers</em> (v4R2025) and earlier published narrative reviews (2013, 2014).</p>
+    <p><strong>Disclaimer:</strong> an educational resource that does not replace local guidelines, specialist advice or clinical judgement. Drug doses shown for awareness are labelled; always check the current local formulary and protocol.</p>
+    <p><strong>Privacy:</strong> no external requests, cookies or analytics. Your progress and notes are stored only in this browser.</p>
+    <p><strong>AI use:</strong> drafting and evidence checking were assisted by an AI system under the author's direction; all content is reviewed and approved by the author. Licence: CC BY-NC 4.0 (proposed, to be confirmed by the author).</p>
   </div>
 </footer>
+<script type="application/json" id="pcc-nav">
+{
+ "parts": [
+  {
+   "key": "O",
+   "label": "Orientation",
+   "colour": "#4A5568",
+   "tint": "#EEF1F5"
+  },
+  {
+   "key": "A",
+   "label": "Part A · Understand",
+   "colour": "#2B5C8A",
+   "tint": "#E6EFF8"
+  },
+  {
+   "key": "B",
+   "label": "Part B · Prevent and detect early",
+   "colour": "#2D6A4F",
+   "tint": "#E4F2EA"
+  },
+  {
+   "key": "C",
+   "label": "Part C · Recognise and refer",
+   "colour": "#855614",
+   "tint": "#F7EEDB"
+  },
+  {
+   "key": "D",
+   "label": "Part D · Share care during treatment",
+   "colour": "#5B4C8C",
+   "tint": "#EDEAF7"
+  },
+  {
+   "key": "E",
+   "label": "Part E · Follow up and support",
+   "colour": "#8A4458",
+   "tint": "#F6E8EC"
+  }
+ ],
+ "modules": [
+  {
+   "id": "M0",
+   "num": 0,
+   "title": "Start here: using this resource",
+   "short": "Start here",
+   "file": "m00-start-here.html",
+   "part": "O"
+  },
+  {
+   "id": "M1",
+   "num": 1,
+   "title": "Cancer patterns in the world and in Malaysia, and how cancer is staged",
+   "short": "Cancer patterns and staging",
+   "file": "m01-cancer-patterns-staging.html",
+   "part": "A"
+  },
+  {
+   "id": "M2",
+   "num": 2,
+   "title": "What causes cancer: risk factors and carcinogens",
+   "short": "Causes and risk factors",
+   "file": "m02-causes-risk-factors.html",
+   "part": "A"
+  },
+  {
+   "id": "M3",
+   "num": 3,
+   "title": "Hereditary cancer risk and genetics referral",
+   "short": "Hereditary risk and genetics",
+   "file": "m03-hereditary-risk-genetics.html",
+   "part": "B"
+  },
+  {
+   "id": "M4",
+   "num": 4,
+   "title": "Prevention in the consultation",
+   "short": "Prevention in the consultation",
+   "file": "m04-prevention.html",
+   "part": "B"
+  },
+  {
+   "id": "M5",
+   "num": 5,
+   "title": "Screening and early detection",
+   "short": "Screening and early detection",
+   "file": "m05-screening-early-detection.html",
+   "part": "B"
+  },
+  {
+   "id": "M6",
+   "num": 6,
+   "title": "Recognising possible cancer and referring",
+   "short": "Recognising and referring",
+   "file": "m06-recognise-refer.html",
+   "part": "C"
+  },
+  {
+   "id": "M7",
+   "num": 7,
+   "title": "Breaking bad news and the referral conversation",
+   "short": "Breaking bad news",
+   "file": "m07-breaking-bad-news.html",
+   "part": "C"
+  },
+  {
+   "id": "M8",
+   "num": 8,
+   "title": "Cancer treatments: what primary care needs to know",
+   "short": "Cancer treatments",
+   "file": "m08-cancer-treatments.html",
+   "part": "D"
+  },
+  {
+   "id": "M9",
+   "num": 9,
+   "title": "Side-effects and toxicity triage",
+   "short": "Side-effects and triage",
+   "file": "m09-side-effects-triage.html",
+   "part": "D"
+  },
+  {
+   "id": "M10",
+   "num": 10,
+   "title": "Oncologic emergencies: recognise and act",
+   "short": "Oncologic emergencies",
+   "file": "m10-oncologic-emergencies.html",
+   "part": "D"
+  },
+  {
+   "id": "M11",
+   "num": 11,
+   "title": "Survivorship and shared follow-up care",
+   "short": "Survivorship and shared care",
+   "file": "m11-survivorship-shared-care.html",
+   "part": "E"
+  },
+  {
+   "id": "M12",
+   "num": 12,
+   "title": "Psychosocial and spiritual care",
+   "short": "Psychosocial and spiritual care",
+   "file": "m12-psychosocial-spiritual-care.html",
+   "part": "E"
+  },
+  {
+   "id": "M13",
+   "num": 13,
+   "title": "Cancer in older adults and multimorbidity",
+   "short": "Older adults and multimorbidity",
+   "file": "m13-older-adults-multimorbidity.html",
+   "part": "E"
+  },
+  {
+   "id": "M14",
+   "num": 14,
+   "title": "Palliative and end-of-life care in primary care",
+   "short": "Palliative and end-of-life care",
+   "file": "m14-palliative-end-of-life.html",
+   "part": "E"
+  }
+ ]
+}
+</script>
 <script type="application/json" id="pcc-content">
 {
  "meta": {
@@ -7877,12 +8087,12 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
    No external dependencies. Progress is stored only in this browser (localStorage). */
 (function(){
 "use strict";
-var ENGINE_VERSION="1.2";
+var ENGINE_VERSION="1.3";
 function $(s,r){return (r||document).querySelector(s);}
 function readJSON(id){var n=document.getElementById(id);if(!n)return null;try{return JSON.parse(n.textContent);}catch(e){console.error("Bad JSON in #"+id,e);showError("Content block #"+id+" could not be read.");return null;}}
 function showError(msg){var m=document.getElementById("main");if(m){var d=document.createElement("div");d.className="callout dont";d.setAttribute("role","alert");d.textContent=msg;m.prepend(d);}}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-var C=readJSON("pcc-content")||{}, S=readJSON("pcc-sources")||{}, D=readJSON("pcc-directory"), G=readJSON("pcc-glossary")||{};
+var C=readJSON("pcc-content")||{}, S=readJSON("pcc-sources")||{}, D=readJSON("pcc-directory"), G=readJSON("pcc-glossary")||{}, NAV=readJSON("pcc-nav")||{parts:[],modules:[]};
 var GUSED={};
 function gkey(k){k=String(k).toLowerCase().trim();if(G[k])return k;for(var x in G){if((G[x].aliases||[]).map(function(a){return a.toLowerCase();}).indexOf(k)>=0)return x;}return null;}
 var META=C.meta||{}, KEY="pcc:"+(META.id||"module");
@@ -8000,6 +8210,27 @@ function evaluate(expr,vars){var src=String(expr),i=0;
   function or(){var v=and();while(take("||")){var r=and();v=v||r;}return v;}
   var out=or();ws();if(i<src.length)throw new Error("Unexpected: "+src.slice(i));return out;}
 function fillTemplate(t,vars){return String(t).replace(/\{\{=\s*([^}]+)\}\}/g,function(m,e){try{var v=evaluate(e,vars);return (typeof v==="number"&&!isFinite(v))?"—":String(v);}catch(err){return "?";}});}
+/* ---------- Site navigation: every module always visible; current module expanded with its sections ---------- */
+function plainTitle(t){return esc(String(t).replace(/\[\[[^\]]+\]\]/g,"").replace(/\(\(([^)|]+)(?:\|[^)]+)?\)\)/g,"$1").replace(/\*\*/g,"").replace(/\{\{[A-Z]+\}\}/g,"").trim());}
+function partOf(id){var m=(NAV.modules||[]).filter(function(x){return x.id===id;})[0];return m?(NAV.parts||[]).filter(function(p){return p.key===m.part;})[0]:null;}
+function applyPart(){var p=partOf(META.id);if(!p)return;document.body.style.setProperty("--pc",p.colour);document.body.style.setProperty("--pt",p.tint);
+  var hd=document.querySelector("main>header p.small");if(hd){hd.innerHTML='<span class="partpill">'+esc(META.part||p.label)+'</span>';}}
+function siteNav(tn,toc){tn.innerHTML="";tn.setAttribute("aria-label","Modules and contents");
+  var cl=h("button",{type:"button","class":"nav-close"},"Close ✕");cl.onclick=function(){document.body.classList.remove("nav-open");};tn.appendChild(cl);
+  tn.appendChild(h("p",{"class":"sn-h"},"All modules"));
+  (NAV.parts||[]).forEach(function(p){var mods=(NAV.modules||[]).filter(function(m){return m.part===p.key;});if(!mods.length)return;
+    var box=h("div",{"class":"sn-part"});box.style.setProperty("--pc",p.colour);box.style.setProperty("--pt",p.tint);
+    box.appendChild(h("p",{"class":"sn-pl"},esc(p.label)));var ol=h("ol",{"class":"sn-list"});
+    mods.forEach(function(m){var cur=m.id===META.id;var li=h("li",cur?{"class":"current"}:null);
+      li.innerHTML='<a href="'+esc(cur?"#main":m.file)+'"'+(cur?' aria-current="page"':'')+'><span class="sn-num" aria-hidden="true">'+esc(String(m.num))+'</span><span class="sn-t"><span class="sr-only">Module '+esc(String(m.num))+': </span>'+esc(m.short||m.title)+'</span></a>';
+      if(cur&&toc.length){var sub=h("ol",{"class":"sn-toc","aria-label":"On this page"});toc.forEach(function(x){sub.appendChild(h("li",null,'<a href="#'+x[0]+'">'+plainTitle(x[1])+'</a>'));});li.appendChild(sub);}
+      ol.appendChild(li);});box.appendChild(ol);tn.appendChild(box);});
+  if(!(NAV.modules||[]).length){var l=h("ol",{"class":"sn-toc"});toc.forEach(function(x){l.appendChild(h("li",null,'<a href="#'+x[0]+'">'+plainTitle(x[1])+'</a>'));});tn.appendChild(l);}
+  tn.appendChild(h("div",{"class":"progress",id:"progress"}));updateProgress();
+  tn.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a");if(a)document.body.classList.remove("nav-open");});
+  var tg=document.querySelector(".nav-toggle");if(tg){tg.onclick=function(){var o=document.body.classList.toggle("nav-open");tg.setAttribute("aria-expanded",o?"true":"false");if(o)cl.focus();};}
+  document.addEventListener("keydown",function(ev){if(ev.key==="Escape"&&document.body.classList.contains("nav-open")){document.body.classList.remove("nav-open");if(tg)tg.focus();}});
+  applyPart();}
 /* ---------- CPD summary across modules (reads this browser's localStorage only) ---------- */
 function cpdSummary(b){var w=h("div",{"class":"tool cpdsum"});if(b.title)w.appendChild(h("h3",null,inline(b.title)));
   w.appendChild(h("p",null,inline(b.intro||"Your record is read from this browser only. Nothing is sent anywhere.")));
@@ -8201,7 +8432,7 @@ function build(){
   });
   termsUsed(m);
   var rs=sec("references","References");rs.classList.add("refs");rs.appendChild(h("p",{"class":"small"},"Numbered in order of first citation. Each entry shows the date it was last verified."));references(rs);
-  var tn=$("#toc");if(tn){tn.innerHTML='<strong>On this page</strong>';var l=h("ol");toc.forEach(function(x){l.appendChild(h("li",null,'<a href="#'+x[0]+'">'+inline(x[1]).replace(/<sup.*?<\/sup>/g,"")+'</a>'));});tn.appendChild(l);tn.appendChild(h("div",{"class":"progress",id:"progress"}));updateProgress();}
+  var tn=$("#toc");if(tn){siteNav(tn,toc);}
   var f=$("#foot-meta");if(f)f.innerHTML=esc((META.title||"")+" · Version "+(META.version||"")+" · Evidence last verified "+(META.verified||"")+" · Engine "+ENGINE_VERSION);
 }
 window.addEventListener("beforeprint",function(){[].forEach.call(document.querySelectorAll("details"),function(d){d.dataset.wasOpen=d.open?"1":"";d.open=true;});});

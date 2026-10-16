@@ -1,7 +1,11 @@
 <!doctype html>
-<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Primary Care for Cancers: an evidence-current, interactive resource for family medicine practitioners in Malaysia and beyond.">
-<title>Primary Care for Cancers — interactive learning resource</title>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Primary Care for Cancers: an interactive, evidence-checked learning resource for primary care in Malaysia.">
+<meta name="robots" content="index,follow">
+<title>Home — Primary Care for Cancers</title>
 <style>
 /* Primary Care for Cancers — shared stylesheet (engine v1.0) */
 :root{
@@ -24,7 +28,7 @@ h1,h2,h3{line-height:1.25;color:var(--navy)}
 h1{font-size:1.78rem;margin:.2rem 0 .6rem}
 h2{font-size:1.33rem;margin:2.2rem 0 .8rem;padding-top:.4rem;border-top:2px solid var(--line)}
 h3{font-size:1.11rem;margin:1.4rem 0 .5rem}
-p,li{max-width:var(--measure)}
+p,li{max-width:none}
 small,.small{font-size:.78rem}
 /* Header */
 .site-head{background:var(--navy);color:#fff}
@@ -35,13 +39,9 @@ small,.small{font-size:.78rem}
 .disclaimer .wrap{max-width:1200px;margin:0 auto;padding:.55rem 1.25rem;font-size:.89rem}
 /* Layout */
 .layout{max-width:1200px;margin:0 auto;padding:1rem 1.25rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
-@media(min-width:1000px){.layout{grid-template-columns:250px minmax(0,1fr)}}
+@media(min-width:1000px){.layout{grid-template-columns:300px minmax(0,1fr)}}
 .toc{display:none}
-@media(min-width:1000px){.toc{display:block;position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;font-size:.89rem;border-right:1px solid var(--line);padding-right:1rem}}
-.toc ol{padding-left:1.1rem;margin:.3rem 0}
-.toc li{margin:.25rem 0}
-.toc a{text-decoration:none}
-.toc a:hover{text-decoration:underline}
+@media(min-width:1000px){.toc{display:block;position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;padding-right:.6rem}}
 .toc .progress{margin-top:1rem;padding:.6rem;background:var(--panel);border-radius:var(--radius);font-size:.83rem}
 main{min-width:0}
 .meta-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 1rem}
@@ -153,9 +153,58 @@ textarea{width:100%;min-height:7rem;font:inherit;padding:.6rem;border-radius:8px
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .print-only{display:none}
 /* Print */
+/* ---- v1.3: part colours, site navigation, line wrapping ---- */
+:root{--pc:#1F3A5F;--pt:#F5F7FA}
+p,li,dd,td,th,figcaption,.sl,.small,.lead{text-wrap:pretty}
+h1,h2,h3,caption,summary,.ctitle,.compare-title,.card h3,.tl-label,.br-l,.sn-t{text-wrap:balance}
+.site-foot p,.disclaimer p,.disclaimer .wrap{max-width:none}
+.site-foot .wrap{display:grid;gap:.15rem 2rem}
+@media(min-width:900px){.site-foot .wrap{grid-template-columns:1fr 1fr}.site-foot .wrap p:first-child{grid-column:1/-1}}
+.site-foot p{margin:.35rem 0}
+.sn-h{font-weight:700;color:var(--navy);margin:0 0 .3rem;font-size:1rem}
+.sn-part{border-left:5px solid var(--pc);background:var(--pt);border-radius:0 8px 8px 0;padding:.35rem .45rem .45rem .55rem;margin:.45rem 0}
+.sn-pl{margin:0 0 .15rem;font-size:.78rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--pc);text-wrap:balance}
+ol.sn-list{list-style:none;margin:0;padding:0}
+.sn-list>li{margin:.08rem 0;max-width:none}
+.sn-list>li>a{display:grid;grid-template-columns:2rem 1fr;gap:.4rem;align-items:start;padding:.2rem .3rem;border-radius:6px;color:var(--ink);text-decoration:none;font-size:.89rem;line-height:1.35}
+.sn-num{display:block;text-align:center;font-weight:700;font-size:.78rem;line-height:1.5;color:#fff;background:var(--pc);border-radius:999px}
+.sn-list>li>a:hover{background:#fff;text-decoration:underline}
+.sn-list>li.current>a{background:#fff;font-weight:700;box-shadow:inset 0 0 0 2px var(--pc)}
+ol.sn-toc{list-style:none;counter-reset:s;margin:.3rem 0 .4rem 1rem;padding:0 0 0 .4rem;border-left:2px solid var(--pc)}
+ol.sn-toc li{counter-increment:s;margin:0;max-width:none}
+ol.sn-toc a{display:grid;grid-template-columns:2rem 1fr;gap:.2rem;font-size:.86rem;line-height:1.35;padding:.14rem .25rem;color:var(--ink);text-decoration:none;border-radius:5px}
+ol.sn-toc a::before{content:counter(s) ".";color:var(--pc);font-weight:700;text-align:right;padding-right:.25rem}
+ol.sn-toc a:hover{background:#fff;text-decoration:underline}
+.nav-toggle{display:none}
+@media(max-width:999.98px){
+  .site-head{position:sticky;top:0;z-index:55}
+  .nav-toggle{display:inline-flex;align-items:center;gap:.4rem;background:#fff;color:var(--navy);border:0;border-radius:8px;font:inherit;font-weight:700;padding:.35rem .8rem;min-height:40px;cursor:pointer}
+  body.nav-open .toc{display:block;position:fixed;top:0;bottom:0;left:0;width:min(90vw,360px);background:#fff;z-index:60;overflow:auto;padding:1rem;box-shadow:0 0 0 100vmax rgba(0,0,0,.35)}
+  .toc .nav-close{display:block}
+}
+.toc .nav-close{display:none;margin:0 0 .6rem auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;font:inherit;padding:.3rem .7rem;cursor:pointer}
+main>header{border-left:6px solid var(--pc);padding-left:1rem}
+.partpill{display:inline-block;background:var(--pt);color:var(--pc);border:1px solid var(--pc);border-radius:999px;padding:.05rem .7rem;font-size:.83rem;font-weight:700}
+/* Hub */
+.hub-hero{background:linear-gradient(135deg,#F5F7FA,#E6EFF8);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0 1.4rem}
+.hub-hero p{font-size:1.05rem}
+.legend-parts{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 0;padding:0;list-style:none}
+.legend-parts a{display:inline-block;background:var(--pt);color:var(--pc);border:1px solid var(--pc);border-radius:999px;padding:.15rem .8rem;font-weight:700;text-decoration:none;font-size:.89rem}
+.hub-part{border-top:6px solid var(--pc);background:var(--pt);border-radius:var(--radius);padding:.6rem 1.1rem 1.1rem;margin:1.4rem 0}
+.hub-part>h2{border:0;margin:.4rem 0 .2rem;color:var(--pc)}
+.hub-part>p.lead{margin:.1rem 0 .8rem;color:var(--ink)}
+.mcard{background:#fff;border:1px solid var(--line);border-left:6px solid var(--pc);border-radius:var(--radius);padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.4rem;height:100%}
+.mcard h3{margin:0;color:var(--pc);font-size:1.11rem}
+.mcard h3 .sn-num{display:inline-block;min-width:2rem;margin-right:.45rem;vertical-align:.1rem}
+.mcard p{margin:0}
+.mcard .meta{display:flex;flex-wrap:wrap;gap:.3rem .9rem;color:var(--muted);font-size:.89rem}
+.mcard ul{margin:.1rem 0 0;padding-left:1.1rem} .mcard li{margin:.1rem 0}
+.mcard .label{font-weight:700;color:var(--ink)}
+.mcard .foot{margin-top:auto;padding-top:.5rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
 @media print{
   :root{font-size:11pt}
-  .site-head nav,.toc,.btnrow,button,.skip,.noprint{display:none!important}
+  .site-head nav,.toc,.btnrow,button,.skip,.noprint,.nav-toggle{display:none!important}
+  main>header{border-left:0;padding-left:0}
   .layout{display:block;padding:0}
   .print-only{display:block}
   details{border:0} details>summary{list-style:none} details .inner{padding:0}
@@ -164,67 +213,103 @@ textarea{width:100%;min-height:7rem;font:inherit;padding:.6rem;border-radius:8px
   thead th{background:#ddd!important;color:#000!important}
   .takehome{background:#fff;color:#000;border:2px solid #000} .takehome h2{color:#000}
 }
+/* ---- v1.1 additions: glossary pop-ups, infographics, tools ---- */
+button.gl{all:unset;cursor:help;border-bottom:2px dotted var(--int);color:inherit;font:inherit;min-height:0;padding:0}
+button.gl:hover,button.gl[aria-expanded="true"]{background:var(--int-bg)}
+button.gl:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
+.gl-pop{position:absolute;z-index:50;max-width:22rem;background:#fff;border:2px solid var(--int);border-radius:var(--radius);box-shadow:0 6px 24px rgba(0,0,0,.18);padding:.7rem 2.2rem .7rem .9rem;font-size:.89rem;line-height:1.5}
+.gl-pop .gl-term{font-weight:700;color:var(--int);margin-bottom:.2rem}
+.gl-pop .gl-close{position:absolute;top:.25rem;right:.3rem;min-height:0;padding:.1rem .45rem;border:0;font-size:1.2rem;line-height:1;background:transparent;color:var(--muted)}
+dl.gl-list dt{font-weight:700;color:var(--navy);margin-top:.5rem} dl.gl-list dd{margin:0 0 .3rem 0;max-width:var(--measure)}
+.infographic{margin:1.2rem 0;padding:.9rem 1rem;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.infographic svg{display:block;max-width:100%;height:auto}
+.ia-wrap{max-width:420px}
+.legend{list-style:none;padding:0;margin:.6rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:.89rem}
+.legend .sw{display:inline-block;width:.9rem;height:.9rem;border-radius:3px;margin-right:.35rem;vertical-align:-.1rem}
+.stats .card{text-align:center;justify-content:center;border-top:6px solid var(--navy)}
+.stat .sv{font-size:1.9rem;font-weight:800;line-height:1.15;color:var(--navy)}
+.stat .sl{font-size:.89rem;color:var(--ink);margin-top:.3rem}
+.card.tone-e{border-top-color:var(--red)} .card.tone-s{border-top-color:var(--amber)} .card.tone-r{border-top-color:var(--green)} .card.tone-m{border-top-color:var(--my)} .card.tone-i{border-top-color:var(--int)}
+.stat.tone-e .sv{color:var(--red)} .stat.tone-s .sv{color:var(--amber)} .stat.tone-r .sv{color:var(--green)} .stat.tone-m .sv{color:var(--my)} .stat.tone-i .sv{color:var(--int)}
+ol.timeline{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.6rem}
+ol.timeline li{display:grid;grid-template-columns:7.5rem 1rem 1fr;align-items:start;gap:.6rem}
+.tl-at{font-weight:700;color:var(--navy);text-align:right}
+.tl-dot{width:.9rem;height:.9rem;border-radius:50%;background:var(--navy);margin-top:.35rem;box-shadow:0 0 0 3px #fff,0 0 0 4px var(--line)}
+ol.timeline li.tone-e .tl-dot{background:var(--red)} ol.timeline li.tone-s .tl-dot{background:var(--amber)} ol.timeline li.tone-r .tl-dot{background:var(--green)} ol.timeline li.tone-i .tl-dot{background:var(--int)}
+@media(min-width:900px){ol.timeline.h{grid-auto-flow:column;grid-auto-columns:1fr} }
+.tree{text-align:left} .tree .tree-q{border-left:6px solid var(--navy);height:auto} .tree-arrow{display:block;margin:.3rem auto}
+.tree .card{border-top:6px solid var(--navy)} .br-l{font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.tool{border:2px solid var(--int);border-radius:var(--radius);padding:1rem 1.2rem;margin:1.2rem 0;background:#fff}
+.tool h3{margin-top:0;color:var(--int)}
+.field{margin:.7rem 0} .field label{display:block;font-weight:600;margin-bottom:.25rem}
+.field label.opt{display:flex;font-weight:400}
+input[type=number],input[type=text],input[type=search],select{font:inherit;padding:.45rem .6rem;border:1px solid var(--line);border-radius:8px;min-height:44px;width:100%;max-width:24rem}
+.tool-out .res{padding:.5rem .6rem;border-radius:8px;background:var(--panel)}
+.res.tone-e{background:var(--red-bg);color:#5c0c0e} .res.tone-s{background:var(--amber-bg)} .res.tone-r{background:var(--green-bg)}
+.tags button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.x-list details.x-item{border-left:6px solid var(--line)} .x-item.tone-e{border-left-color:var(--red)} .x-item.tone-s{border-left-color:var(--amber)} .x-item.tone-r{border-left-color:var(--green)} .x-item.tone-i{border-left-color:var(--int)} .x-item.tone-m{border-left-color:var(--my)}
+.plan dl{display:grid;grid-template-columns:minmax(8rem,14rem) 1fr;gap:.3rem 1rem} .plan dt{font-weight:700} .plan dd{margin:0}
+@media print{button.gl{border:0}.gl-pop{display:none}.tool form{display:none}.infographic{break-inside:avoid}}
 
-.hero{background:var(--panel);border-bottom:1px solid var(--line)}
-.hero .wrap{max-width:1200px;margin:0 auto;padding:1.5rem 1.25rem}
-main.hub{max-width:1200px;margin:0 auto;padding:0 1.25rem 3rem}
-.card .btn{display:inline-block;text-decoration:none;font-weight:600}
-</style></head>
+</style>
+</head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
-<header class="site-head"><div class="wrap"><a href="index.html">Primary Care for Cancers</a><nav aria-label="Site"><a href="#modules">Modules</a><a href="#about">About</a></nav></div></header>
-<div class="disclaimer" role="note"><div class="wrap"><strong>Educational resource.</strong> It does not replace local guidelines, specialist advice or clinical judgement.</div></div>
-<div class="hero"><div class="wrap">
-<h1>Primary Care for Cancers</h1>
-<p>Practical, evidence-current learning for GPs, family medicine specialists and trainees, and for nurses, pharmacists and allied health professionals. Organised around what you do in the consultation: recognise, refer, share care, follow up, support and safety-net.</p>
-<div class="meta-row"><span class="pill verified">Evidence last verified: 15 October 2026</span><span class="pill">Version 0.1</span><span class="pill draft">Pilot — under author review</span></div>
-</div></div>
-<main id="main" class="hub" tabindex="-1">
-<section id="modules" aria-label="Modules">
-<h2>Orientation</h2>
-<div class="grid two">
-<div class="card"><h3>Module 0: Start here: using this resource</h3><p>Choose a pathway by role or by today's clinical question; learn the evidence labels, urgency markers and glossary pop-ups.</p><p class="small">About 10 minutes</p><div class="foot"><a class="btn" href="m00-start-here.html">Start here</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Site tools</h3><p>Search every glossary term, browse the evidence register by module, and print your CPD summary — all kept in your browser only.</p><p class="small">Glossary · Evidence register · CPD</p><div class="foot"><a class="btn" href="m00-start-here.html#glossary">Glossary</a> <a class="btn" href="m00-start-here.html#register">Evidence register</a> <a class="btn" href="m00-start-here.html#cpdsum">My CPD</a></div></div>
-</div>
-<h2>A. Understand</h2>
-<div class="grid two">
-<div class="card"><h3>Module 1: Cancer patterns in the world and in Malaysia, and how cancer is staged</h3><p>Know the global and local burden; read stage and grade; understand late presentation; plan for equity.</p><p class="small">About 45–60 minutes</p><div class="foot"><a class="btn" href="m01-cancer-patterns-staging.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 2: What causes cancer: risk factors and carcinogens</h3><p>Explain causes; identify modifiable risks; counsel on hazards.</p><p class="small">About 35–45 minutes</p><div class="foot"><a class="btn" href="m02-causes-risk-factors.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-</div>
-<h2>B. Prevent and detect early</h2>
-<div class="grid three">
-<div class="card"><h3>Module 3: Hereditary cancer risk and genetics referral</h3><p>Identify inherited risk; refer for genetics; coordinate risk management.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m03-hereditary-risk-genetics.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 4: Prevention in the consultation</h3><p>Give brief prevention advice; vaccinate; avoid ineffective chemoprevention.</p><p class="small">About 35–45 minutes</p><div class="foot"><a class="btn" href="m04-prevention.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 5: Screening and early detection</h3><p>Offer screening; support shared decisions; act on results.</p><p class="small">About 45–60 minutes</p><div class="foot"><a class="btn" href="m05-screening-early-detection.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-</div>
-<h2>C. Recognise and refer</h2>
-<div class="grid two">
-<div class="card"><h3>Module 6: Recognising possible cancer and referring</h3><p>Recognise; investigate; refer at the right speed; safety-net.</p><p class="small">About 30–40 minutes</p><div class="foot"><a class="btn" href="m06-recognise-refer.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 7: Breaking bad news and the referral conversation</h3><p>Break bad news; prepare for referral; support at diagnosis.</p><p class="small">About 30–40 minutes</p><div class="foot"><a class="btn" href="m07-breaking-bad-news.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-</div>
-<h2>D. Share care during treatment</h2>
-<div class="grid three">
-<div class="card"><h3>Module 8: Cancer treatments: what primary care needs to know</h3><p>Understand treatments; manage medicines and comorbidity; discuss CAM.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m08-cancer-treatments.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 9: Side-effects and toxicity triage</h3><p>Triage side-effects; manage mild toxicity; escalate early.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m09-side-effects-triage.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 10: Oncologic emergencies: recognise and act</h3><p>Recognise emergencies; act first; refer fast.</p><p class="small">About 30–40 minutes</p><div class="foot"><a class="btn" href="m10-oncologic-emergencies.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-</div>
-<h2>E. Follow up and support</h2>
-<div class="grid two">
-<div class="card"><h3>Module 11: Survivorship and shared follow-up care</h3><p>Share follow-up care; manage late effects; promote recovery and return to life.</p><p class="small">About 60–75 minutes</p><div class="foot"><a class="btn" href="m11-survivorship-shared-care.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 12: Psychosocial and spiritual care</h3><p>Screen distress; support mental health; respect spiritual needs; support carers.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m12-psychosocial-spiritual-care.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 13: Cancer in older adults and multimorbidity</h3><p>Assess older adults; manage multimorbidity; align care with goals.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m13-older-adults-multimorbidity.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
-<div class="card"><h3>Module 14: Palliative and end-of-life care in primary care</h3><p>Identify palliative needs early; control symptoms; plan end-of-life care at home.</p><p class="small">About 40–50 minutes</p><div class="foot"><a class="btn" href="m14-palliative-end-of-life.html">Open module</a> <span class="pill draft">Draft for review</span></div></div>
+<header class="site-head">
+  <div class="wrap">
+    <a href="index.html">Primary Care for Cancers</a>
+        <nav aria-label="Site"><a href="index.html">Home</a><a href="m00-start-here.html#glossary">Glossary</a><a href="m00-start-here.html#register">Evidence register</a><a href="m14-palliative-end-of-life.html#help">Where to get help</a></nav>
+  </div>
+</header>
+<div class="disclaimer" role="note">
+  <div class="wrap"><strong>Educational resource.</strong> It does not replace local guidelines, specialist advice or clinical judgement. Services, formularies and referral routes vary by locality — follow your local protocol.</div>
 </div>
 
-</section>
-<section id="about" aria-labelledby="about-h">
-<h2 id="about-h">About this resource</h2>
-<div class="grid three">
-<div class="card"><h3>Evidence policy</h3><p>Malaysian guidance and data come first; WHO, NICE, USPSTF, ACS, ESMO and others are shown side by side and never merged. Every recommendation names its source, body and year, and expert opinion is labelled.</p></div>
-<div class="card"><h3>Author</h3><p>Prof Boon-How Chew, Department of Family Medicine, Universiti Putra Malaysia. Builds on Chew &amp; Taher (FMCH 2013; JFMCH 2014) and the ebook <em>Primary Care for Cancers</em> (v4R2025).</p></div>
-<div class="card"><h3>Privacy and use</h3><p>No tracking, cookies or external requests. Progress is kept only in your browser. AI-assisted drafting and evidence checking under the author's direction; all content reviewed by the author.</p></div>
-</div>
-</section>
-</main>
-<footer class="site-foot"><div class="wrap"><p>Version 0.1 · Evidence last verified 15 October 2026 · Educational resource; not a substitute for local guidelines, specialist advice or clinical judgement.</p></div></footer>
-</body></html>
+<main id="main" class="hub" tabindex="-1" style="max-width:1200px;margin:0 auto;padding:0 1.25rem 2rem">
+<div class="hub-hero"><h1>Primary Care for Cancers</h1><p>An interactive, evidence-checked learning resource for general practitioners, family medicine specialists and trainees in Malaysia — and for students, nurses, pharmacists and allied health professionals. It is organised around what primary care does: recognise, refer, share care, follow up, support and safety-net.</p>
+<p><a class="btn" href="m00-start-here.html">Start here</a> <a class="btn" href="m00-start-here.html#pathways">Choose a pathway</a> <a class="btn" href="m06-recognise-refer.html">Possible cancer today?</a> <a class="btn" href="m10-oncologic-emergencies.html">Emergencies</a></p>
+<ul class="legend-parts" aria-label="Parts"><li><a href="#part-O" style="--pc:#4A5568;--pt:#EEF1F5">Orientation</a></li><li><a href="#part-A" style="--pc:#2B5C8A;--pt:#E6EFF8">Part A · Understand</a></li><li><a href="#part-B" style="--pc:#2D6A4F;--pt:#E4F2EA">Part B · Prevent and detect early</a></li><li><a href="#part-C" style="--pc:#855614;--pt:#F7EEDB">Part C · Recognise and refer</a></li><li><a href="#part-D" style="--pc:#5B4C8C;--pt:#EDEAF7">Part D · Share care during treatment</a></li><li><a href="#part-E" style="--pc:#8A4458;--pt:#F6E8EC">Part E · Follow up and support</a></li></ul></div>
+<section class="hub-part" id="part-O" style="--pc:#4A5568;--pt:#EEF1F5" aria-labelledby="h-O"><h2 id="h-O">Orientation</h2><p class="lead">How the resource works, how evidence is labelled, the site glossary, and your CPD record.</p><div class="grid two"><div class="mcard"><h3><span class="sn-num" aria-hidden="true">0</span>Module 0: Start here: using this resource</h3>
+<p>Choose a pathway by role or by today&#x27;s clinical question, learn the labels used on every page, and keep a private CPD record.</p><p class="label">You will be able to:</p><ul><li>Find the modules that match your role and today&#x27;s clinical question.</li><li>Read the evidence labels, urgency markers and glossary pop-ups used on every page.</li><li>Explain how evidence in this resource is chosen, verified and dated.</li></ul><p><span class='label'>Interactive:</span> Pathway picker; Search 411 terms; Sources by module; Modules completed in this browser.</p>
+<p class="meta">About 10 minutes</p><div class="foot"><a class="btn" href="m00-start-here.html">Open module 0</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3>Site tools</h3><p>Search every glossary term, browse the evidence register by module, and print your CPD summary — kept in your browser only.</p>
+<p class="label">On every page:</p><ul><li>All modules listed in the side panel (or the ☰ Modules button on a phone).</li><li>Dotted-underlined terms open a plain-English definition.</li><li>Evidence labels: Malaysian, international, study, expert opinion.</li></ul>
+<p class="meta">Evidence last verified 15 October 2026</p><div class="foot"><a class="btn" href="m00-start-here.html#glossary">Glossary</a> <a class="btn" href="m00-start-here.html#register">Evidence register</a> <a class="btn" href="m00-start-here.html#cpdsum">My CPD</a></div></div></div></section><section class="hub-part" id="part-A" style="--pc:#2B5C8A;--pt:#E6EFF8" aria-labelledby="h-A"><h2 id="h-A">Part A · Understand</h2><p class="lead">The burden of cancer worldwide and in Malaysia, how cancer is classified and staged, and what causes it.</p><div class="grid two"><div class="mcard"><h3><span class="sn-num" aria-hidden="true">1</span>Module 1: Cancer patterns in the world and in Malaysia, and how cancer is staged</h3>
+<p>Know the global and local burden; read stage and grade; understand late presentation; plan for equity.</p><p class="label">You will be able to:</p><ul><li>Describe global and Malaysian cancer patterns — leading cancers by sex, regional and development-related variation, survival gaps and projections — using GLOBOCAN 2024 and the Malaysia National Cancer Registry correctly.</li><li>Interpret crude and age-standardised rates, cumulative (0–74 year) risk, mortality-to-incidence ratios and five-year prevalence, and tell registry counts from modelled estimates.</li><li>Explain the principles common to all cancer staging: T, N and M; the c, p, y, r and a prefixes; stage groups; non-anatomic prognostic factors; and the difference between stage and grade.</li></ul><p><span class='label'>Interactive:</span> Statistics decoder; Practice-population estimator (an estimate, not a prediction); Staging explorer; Recognise-and-act drill.</p><p><span class='label'>Cases:</span> Puan Aminah, Encik Hassan.</p>
+<p class="meta">About 45–60 minutes · 10-question quiz · 84 sources</p><div class="foot"><a class="btn" href="m01-cancer-patterns-staging.html">Open module 1</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">2</span>Module 2: What causes cancer: risk factors and carcinogens</h3>
+<p>Explain causes; identify modifiable risks; counsel on hazards.</p><p class="label">You will be able to:</p><ul><li>Explain cancer causation as a mix of inherited, environmental and chance factors, in words patients understand.</li><li>Interpret International Agency for Research on Cancer (IARC) groups as the strength of evidence that something can cause cancer (hazard), not the size of the risk.</li><li>Identify the modifiable causes most relevant to Malaysian patients — tobacco, betel quid, alcohol, infections, salted fish, aflatoxins and excess body fat — and ask about them in routine care.</li></ul><p><span class='label'>Interactive:</span> IARC agent lookup.</p><p><span class='label'>Case:</span> Mr Tan.</p>
+<p class="meta">About 35–45 minutes · 10-question quiz · 54 sources</p><div class="foot"><a class="btn" href="m02-causes-risk-factors.html">Open module 2</a> <span class="pill draft">Draft for review</span></div></div></div></section><section class="hub-part" id="part-B" style="--pc:#2D6A4F;--pt:#E4F2EA" aria-labelledby="h-B"><h2 id="h-B">Part B · Prevent and detect early</h2><p class="lead">Inherited risk, prevention in everyday consultations, and screening programmes — Malaysian guidance first.</p><div class="grid three"><div class="mcard"><h3><span class="sn-num" aria-hidden="true">3</span>Module 3: Hereditary cancer risk and genetics referral</h3>
+<p>Identify inherited risk; refer for genetics; coordinate risk management.</p><p class="label">You will be able to:</p><ul><li>Take and record a three-generation cancer family history, on both the maternal and paternal sides.</li><li>Recognise pedigree patterns that suggest hereditary breast and ovarian cancer, Lynch syndrome, polyposis and rarer syndromes.</li><li>Apply referral criteria — the Malaysian CPGs and NICE side by side — to decide who needs genetics assessment.</li></ul><p><span class='label'>Interactive:</span> Family cancer history record; Breast and ovarian family-history referral checker; Bowel cancer family and Lynch syndrome referral checker; What does this result mean? and more.</p><p><span class='label'>Cases:</span> Ms Lee, Encik Rahman.</p>
+<p class="meta">About 40–50 minutes · 9-question quiz · 28 sources</p><div class="foot"><a class="btn" href="m03-hereditary-risk-genetics.html">Open module 3</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">4</span>Module 4: Prevention in the consultation</h3>
+<p>Give brief prevention advice; vaccinate; avoid ineffective chemoprevention.</p><p class="label">You will be able to:</p><ul><li>Deliver brief, evidence-based advice on tobacco (including betel quid and vaping), alcohol, body weight, diet and physical activity, and choose the one change that matters most for each patient.</li><li>Advise on HPV and hepatitis B vaccination using the Malaysian National Immunisation Programme first, and explain where WHO and US positions differ.</li><li>Identify who should be tested and treated for Helicobacter pylori to lower gastric cancer risk, following the Malaysian consensus.</li></ul><p><span class='label'>Interactive:</span> HPV vaccination eligibility card; Prevention priorities: profile to top three actions; Agree a prevention plan with the patient.</p><p><span class='label'>Cases:</span> Encik Faizal, Puan Kavitha.</p>
+<p class="meta">About 35–45 minutes · 10-question quiz · 52 sources</p><div class="foot"><a class="btn" href="m04-prevention.html">Open module 4</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">5</span>Module 5: Screening and early detection</h3>
+<p>Offer screening; support shared decisions; act on results.</p><p class="label">You will be able to:</p><ul><li>Apply the principles of screening to explain test-specific benefits and harms, including lead-time bias and overdiagnosis.</li><li>Determine screening eligibility for cervical, breast, colorectal and lung cancer using Malaysian guidance first, and compare WHO, USPSTF, ACS and UK/EU positions side by side.</li><li>Use absolute numbers and icon arrays to support shared decisions about PSA testing, lung screening and mammography at 40–49.</li></ul><p><span class='label'>Interactive:</span> Benefit–harm explorer: what happens to 1000 people; Cervical screening checker; Breast screening checker; Colorectal screening checker and more.</p><p><span class='label'>Cases:</span> Madam Wong, Mr Kumar.</p>
+<p class="meta">About 45–60 minutes · 10-question quiz · 59 sources</p><div class="foot"><a class="btn" href="m05-screening-early-detection.html">Open module 5</a> <span class="pill draft">Draft for review</span></div></div></div></section><section class="hub-part" id="part-C" style="--pc:#855614;--pt:#F7EEDB" aria-labelledby="h-C"><h2 id="h-C">Part C · Recognise and refer</h2><p class="lead">Recognising possible cancer, referring at the right speed, safety-netting, and the conversations that follow.</p><div class="grid two"><div class="mcard"><h3><span class="sn-num" aria-hidden="true">6</span>Module 6: Recognising possible cancer and referring</h3>
+<p>Recognise; investigate; refer at the right speed; safety-net.</p><p class="label">You will be able to:</p><ul><li>Recognise symptoms, signs and test results that call for investigation or referral for suspected cancer, using Malaysian CPG criteria first with NICE NG12 and SRG 2025 alongside.</li><li>Choose an appropriate first investigation in primary care and the right urgency of referral, and explain where Malaysian and international timeframes differ.</li><li>Identify the cancers most often missed or diagnosed late in primary care, and the patient, clinician, test and system reasons behind them.</li></ul><p><span class='label'>Interactive:</span> Positive-predictive-value ladder: make your estimate first; Missed-cancer explorer; Symptom-to-referral navigator; Safety-net builder and more.</p><p><span class='label'>Cases:</span> Mr Lim, Aisyah, Madam Kaur.</p>
+<p class="meta">About 30–40 minutes · 10-question quiz · 104 sources</p><div class="foot"><a class="btn" href="m06-recognise-refer.html">Open module 6</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">7</span>Module 7: Breaking bad news and the referral conversation</h3>
+<p>Break bad news; prepare for referral; support at diagnosis.</p><p class="label">You will be able to:</p><ul><li>Prepare for and hold a breaking-bad-news conversation using a structured, culturally responsive approach (SPIKES adapted to Malaysian preferences).</li><li>Respond to a family&#x27;s request not to tell the patient in a way that respects the patient&#x27;s autonomy and the Malaysian Medical Council consent guideline (2025).</li><li>Give patients being referred the practical information they need, using a printable referral-conversation checklist.</li></ul><p><span class='label'>Interactive:</span> Referral-conversation checklist (printable).</p><p><span class='label'>Cases:</span> Mrs Ng, Encik Rahman.</p>
+<p class="meta">About 30–40 minutes · 9-question quiz · 29 sources</p><div class="foot"><a class="btn" href="m07-breaking-bad-news.html">Open module 7</a> <span class="pill draft">Draft for review</span></div></div></div></section><section class="hub-part" id="part-D" style="--pc:#5B4C8C;--pt:#EDEAF7" aria-labelledby="h-D"><h2 id="h-D">Part D · Share care during treatment</h2><p class="lead">What cancer treatments do, how to triage side-effects, and how to recognise and act on emergencies.</p><div class="grid three"><div class="mcard"><h3><span class="sn-num" aria-hidden="true">8</span>Module 8: Cancer treatments: what primary care needs to know</h3>
+<p>Understand treatments; manage medicines and comorbidity; discuss CAM.</p><p class="label">You will be able to:</p><ul><li>Explain the main types and intents of cancer treatment to patients in plain language, including adjuvant and neoadjuvant therapy.</li><li>Decode common terms in oncology letters (biomarkers, performance status, regimens, response) and act on what they imply for primary care.</li><li>Anticipate how cancer treatment affects other conditions and medicines, and check for drug–drug, herb–drug and food interactions.</li></ul><p><span class='label'>Interactive:</span> Decode the oncology letter; CAM and supplement record to share with the oncology team; Vaccination timing checker.</p><p><span class='label'>Cases:</span> Puan Siti, Mr Lim.</p>
+<p class="meta">About 40–50 minutes · 10-question quiz · 55 sources</p><div class="foot"><a class="btn" href="m08-cancer-treatments.html">Open module 8</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">9</span>Module 9: Side-effects and toxicity triage</h3>
+<p>Triage side-effects; manage mild toxicity; escalate early.</p><p class="label">You will be able to:</p><ul><li>Triage symptoms in a person on systemic anticancer therapy using CTCAE grades and a red–amber–green approach.</li><li>Manage common mild side-effects in primary care — nausea, mouth, bowel, skin, fatigue, appetite and neuropathy — and recognise when to escalate.</li><li>Recognise immune-related adverse events by organ, order the right first tests, and contact oncology the same day.</li></ul><p><span class='label'>Interactive:</span> Make a treatment alert and safety-net card; Triage cards: symptom → grade → action → who to call; irAE organ map.</p><p><span class='label'>Case:</span> Mr Raju.</p>
+<p class="meta">About 40–50 minutes · 9-question quiz · 33 sources</p><div class="foot"><a class="btn" href="m09-side-effects-triage.html">Open module 9</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">10</span>Module 10: Oncologic emergencies: recognise and act</h3>
+<p>Recognise emergencies; act first; refer fast.</p><p class="label">You will be able to:</p><ul><li>Recognise the presenting features of the main oncologic emergencies in primary care, including atypical presentations such as neutropenic sepsis without fever.</li><li>Take safe immediate actions in the clinic before transfer.</li><li>Arrange the right level and speed of referral, using Malaysian services where they exist.</li></ul><p><span class='label'>Interactive:</span> Recognise-and-act drill.</p><p><span class='label'>Cases:</span> Puan Lim, Mr Chandran.</p>
+<p class="meta">About 30–40 minutes · 10-question quiz · 31 sources</p><div class="foot"><a class="btn" href="m10-oncologic-emergencies.html">Open module 10</a> <span class="pill draft">Draft for review</span></div></div></div></section><section class="hub-part" id="part-E" style="--pc:#8A4458;--pt:#F6E8EC" aria-labelledby="h-E"><h2 id="h-E">Part E · Follow up and support</h2><p class="lead">Long-term follow-up and shared care, psychosocial and spiritual support, older adults, and end-of-life care.</p><div class="grid two"><div class="mcard"><h3><span class="sn-num" aria-hidden="true">11</span>Module 11: Survivorship and shared follow-up care</h3>
+<p>Share follow-up care; manage late effects; promote recovery and return to life.</p><p class="label">You will be able to:</p><ul><li>Describe shared-care models and agree roles with oncology teams, using a Malaysian clinic as the setting.</li><li>Use a treatment summary and survivorship care plan to organise follow-up, naming the guideline behind each surveillance schedule.</li><li>Recognise and manage common late and long-term effects by treatment exposure, including cardiovascular and bone health.</li></ul><p><span class='label'>Interactive:</span> Survivorship care-plan builder (printable); Late-effects checker by treatment exposure; Late-effects triage cards; Exercise-prescription tool (FITT).</p><p><span class='label'>Cases:</span> Madam Chong, Encik Azman.</p>
+<p class="meta">About 60–75 minutes · 10-question quiz · 66 sources</p><div class="foot"><a class="btn" href="m11-survivorship-shared-care.html">Open module 11</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">12</span>Module 12: Psychosocial and spiritual care</h3>
+<p>Screen distress; support mental health; respect spiritual needs; support carers.</p><p class="label">You will be able to:</p><ul><li>Screen for distress at key points of the cancer journey and identify probable depression and anxiety using tools validated in Malaysia.</li><li>Offer stepped psychosocial care matched to severity, and refer urgently when there is risk of self-harm or severe illness.</li><li>Recognise fear of cancer recurrence, respond with a brief structured conversation and refer when it is clinically significant.</li></ul><p><span class='label'>Interactive:</span> Distress-screening practice: interpret scores side by side; Stepped-care navigator; My plan for the weeks before a scan; Spiritual-history practice prompts.</p><p><span class='label'>Case:</span> Mr Ong.</p>
+<p class="meta">About 40–50 minutes · 10-question quiz · 45 sources</p><div class="foot"><a class="btn" href="m12-psychosocial-spiritual-care.html">Open module 12</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">13</span>Module 13: Cancer in older adults and multimorbidity</h3>
+<p>Assess older adults; manage multimorbidity; align care with goals.</p><p class="label">You will be able to:</p><ul><li>Use a brief screening tool, the G8, to identify older adults with cancer who need a geriatric assessment, and explain what an abnormal score means.</li><li>Contribute geriatric-assessment information — function, falls, cognition, mood, nutrition, comorbidity, medicines and social support — to the treatment decisions made by surgical and oncology teams.</li><li>Review and deprescribe medicines safely in an older adult with multimorbidity before and during cancer treatment, using Malaysian and international criteria.</li></ul><p><span class='label'>Interactive:</span> G8 screening calculator (educational); Domain navigator: tool, threshold and primary-care action; Geriatric summary for the surgical or oncology team.</p><p><span class='label'>Cases:</span> Encik Abdullah, Deprescribing review.</p>
+<p class="meta">About 40–50 minutes · 9-question quiz · 35 sources</p><div class="foot"><a class="btn" href="m13-older-adults-multimorbidity.html">Open module 13</a> <span class="pill draft">Draft for review</span></div></div><div class="mcard"><h3><span class="sn-num" aria-hidden="true">14</span>Module 14: Palliative and end-of-life care in primary care</h3>
+<p>Identify palliative needs early; control symptoms; plan end-of-life care at home.</p><p class="label">You will be able to:</p><ul><li>Identify patients who would benefit from palliative care on the basis of needs rather than prognosis, using structured prompts.</li><li>Begin and document an advance care planning (ACP) conversation in line with Ministry of Health Malaysia (MOH) guidance, including the role of a healthcare proxy.</li><li>Assess cancer pain and start, titrate and review oral opioids safely, with breakthrough doses and constipation prevention.</li></ul><p><span class='label'>Interactive:</span> Palliative-needs checker (case-based); ACP conversation guide; Worked examples (oral morphine); Symptom cards and more.</p><p><span class='label'>Case:</span> Puan Rosnah.</p>
+<p class="meta">About 40–50 minutes · 10-question quiz · 37 sources</p><div class="foot"><a class="btn" href="m14-palliative-end-of-life.html">Open module 14</a> <span class="pill draft">Draft for review</span></div></div></div></section></main>
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Version 0.1 · Evidence last verified 15 October 2026 · Educational resource; not a substitute for local guidelines, specialist advice or clinical judgement.</p>
+    <p><strong>Author:</strong> Prof Dr Boon-How Chew, Consultant Family Medicine Specialist, Department of Family Medicine, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia. Based on the author's ebook <em>Primary Care for Cancers</em> (v4R2025) and earlier published narrative reviews (2013, 2014).</p>
+    <p><strong>Disclaimer:</strong> an educational resource that does not replace local guidelines, specialist advice or clinical judgement. Drug doses shown for awareness are labelled; always check the current local formulary and protocol.</p>
+    <p><strong>Privacy:</strong> no external requests, cookies or analytics. Your progress and notes are stored only in this browser.</p>
+    <p><strong>AI use:</strong> drafting and evidence checking were assisted by an AI system under the author's direction; all content is reviewed and approved by the author. Licence: CC BY-NC 4.0 (proposed, to be confirmed by the author).</p>
+  </div>
+</footer>
+</body>
+</html>
