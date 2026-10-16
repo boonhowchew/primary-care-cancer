@@ -83,12 +83,14 @@ sup.cite a{font-size:.72rem;text-decoration:none;padding:0 .1rem}
 .compare-title{font-weight:700;color:var(--int);margin-top:1rem}
 /* Tables */
 .tablewrap{overflow-x:auto;margin:1rem 0;border:1px solid var(--line);border-radius:var(--radius)}
-table{border-collapse:collapse;width:100%;font-size:.89rem}
+table{border-collapse:collapse;width:100%;font-size:.89rem;table-layout:fixed}
+th,td{overflow-wrap:break-word;hyphens:manual}
+tbody th{font-weight:600}
 th,td{padding:.55rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 thead th{background:var(--navy);color:#fff;position:sticky;top:0}
 tbody tr:nth-child(even){background:#FAFBFC}
 caption{caption-side:bottom;text-align:left;font-size:.78rem;color:var(--muted);padding:.5rem .7rem}
-.urg{font-weight:700;white-space:nowrap}
+.urg{font-weight:700;white-space:normal}
 .urg.e{color:var(--red)} .urg.s{color:var(--amber)} .urg.r{color:var(--green)}
 /* Buttons */
 button,.btn{font:inherit;font-size:.94rem;border-radius:8px;border:1px solid var(--navy);background:#fff;color:var(--navy);padding:.45rem .9rem;cursor:pointer;min-height:44px}
@@ -185,6 +187,19 @@ ol.sn-toc a:hover{background:#fff;text-decoration:underline}
 .toc .nav-close{display:none;margin:0 0 .6rem auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;font:inherit;padding:.3rem .7rem;cursor:pointer}
 main>header{border-left:6px solid var(--pc);padding-left:1rem}
 .partpill{display:inline-block;background:var(--pt);color:var(--pc);border:1px solid var(--pc);border-radius:999px;padding:.05rem .7rem;font-size:.83rem;font-weight:700}
+/* Tables stack into labelled rows on narrow screens */
+@media(max-width:699.98px){
+  table.stack{table-layout:auto}
+  table.stack colgroup,table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack th,table.stack td{display:block;width:100%}
+  table.stack tr{border-bottom:2px solid var(--line);padding:.35rem 0}
+  table.stack th,table.stack td{border:0;padding:.25rem .7rem}
+  table.stack td::before{content:attr(data-label);display:block;font-size:.83rem;font-weight:700;color:var(--muted)}
+  table.stack tbody th{font-size:1rem;color:var(--navy)}
+}
+.x-item>summary{display:list-item;cursor:pointer}
+.x-item>summary .x-title{display:block;font-weight:700}
+.x-item>summary .x-sub{display:block;font-size:.89rem;font-weight:400;color:var(--muted);margin-top:.1rem}
 /* Hub */
 .hub-hero{background:linear-gradient(135deg,#F5F7FA,#E6EFF8);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0 1.4rem}
 .hub-hero p{font-size:1.05rem}
@@ -1048,8 +1063,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Function",
        "subtitle": "Can they manage daily life?",
        "tags": [
-        "function",
-        "ASCO core"
+        "Function"
        ],
        "tone": "n",
        "fields": [
@@ -1077,9 +1091,8 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Falls and mobility",
        "subtitle": "Have they fallen? How fast do they walk?",
        "tags": [
-        "function",
-        "falls",
-        "ASCO core"
+        "Function",
+        "Falls"
        ],
        "tone": "s",
        "fields": [
@@ -1107,9 +1120,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Cognition",
        "subtitle": "Will they understand, remember and manage treatment?",
        "tags": [
-        "cognition",
-        "ASCO core",
-        "capacity"
+        "Cognition and capacity"
        ],
        "tone": "n",
        "fields": [
@@ -1137,8 +1148,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Mood",
        "subtitle": "Is depression or anxiety present?",
        "tags": [
-        "psychological",
-        "ASCO core"
+        "Psychological"
        ],
        "tone": "n",
        "fields": [
@@ -1166,8 +1176,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Nutrition",
        "subtitle": "Are they losing weight?",
        "tags": [
-        "nutrition",
-        "ASCO core"
+        "Nutrition"
        ],
        "tone": "s",
        "fields": [
@@ -1195,8 +1204,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Comorbidity",
        "subtitle": "Which other illnesses change the risks?",
        "tags": [
-        "comorbidity",
-        "ASCO core"
+        "Comorbidity"
        ],
        "tone": "e",
        "fields": [
@@ -1224,8 +1232,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Medicines",
        "subtitle": "Is the medicine list safe and necessary?",
        "tags": [
-        "polypharmacy",
-        "ASCO core"
+        "Polypharmacy"
        ],
        "tone": "e",
        "fields": [
@@ -1253,9 +1260,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "title": "Social support and carers",
        "subtitle": "Who helps, and who will help during treatment?",
        "tags": [
-        "social",
-        "carers",
-        "ASCO core"
+        "Social support and carers"
        ],
        "tone": "m",
        "fields": [
@@ -6216,10 +6221,12 @@ function block(b){
   case "compare": {var w2=h("div");if(b.title)w2.appendChild(h("div",{"class":"compare-title"},'<span aria-hidden="true">⇄ </span>'+inline(b.title)));
     var g=h("div",{"class":"compare"});g.style.setProperty("--n",Math.min((b.cols||[]).length,3));
     (b.cols||[]).forEach(function(col){var d=h("div",{"class":"col"});d.appendChild(h("div",{"class":"body"},inline(col.body)));d.appendChild(h("div",null,inline(col.text)));g.appendChild(d);});w2.appendChild(g);return w2;}
-  case "table": {var tw=h("div",{"class":"tablewrap","role":"region","aria-label":b.caption||"table","tabindex":"0"});var t=h("table");
+  case "table": {var tw=h("div",{"class":"tablewrap","role":"region","aria-label":plainRaw(b.caption||"table"),"tabindex":"0"});var t=h("table",{"class":"stack"});
+    (function(){var n=(b.head||[]).length;if(!n)return;var w=[];for(var c=0;c<n;c++){var tot=0,k=0;(b.rows||[]).forEach(function(r){if(r[c]!=null){tot+=plainRaw(String(r[c]).replace(/^!(e|s|r) /,"")).length;k++;}});var avg=k?tot/k:10;avg=Math.max(avg,plainRaw(b.head[c]).length*0.9);w.push(Math.min(9,Math.max(3,Math.sqrt(avg))));}
+      var sum=w.reduce(function(a,x){return a+x;},0);var cg=h("colgroup");w.forEach(function(x){var col=h("col");col.style.width=(100*x/sum).toFixed(1)+"%";cg.appendChild(col);});t.appendChild(cg);})();
     if(b.caption)t.appendChild(h("caption",null,inline(b.caption)));
     var th=h("thead"),tr=h("tr");(b.head||[]).forEach(function(x){tr.appendChild(h("th",{scope:"col"},inline(x)));});th.appendChild(tr);t.appendChild(th);
-    var tb=h("tbody");(b.rows||[]).forEach(function(r){var row=h("tr");r.forEach(function(cell,ci){var m=/^!(e|s|r) (.*)$/.exec(cell);var td=h(ci===0?"th":"td",ci===0?{scope:"row"}:null);
+    var tb=h("tbody");(b.rows||[]).forEach(function(r){var row=h("tr");r.forEach(function(cell,ci){var m=/^!(e|s|r) (.*)$/.exec(cell);var td=h(ci===0?"th":"td",ci===0?{scope:"row","data-label":plainRaw((b.head||[])[ci]||"")}:{"data-label":plainRaw((b.head||[])[ci]||"")});
       if(m){td.innerHTML='<span class="urg '+m[1]+'">'+({e:"⬤ ",s:"◐ ",r:"○ "})[m[1]]+inline(m[2])+'</span>';}else td.innerHTML=inline(cell);row.appendChild(td);});tb.appendChild(row);});t.appendChild(tb);tw.appendChild(t);return tw;}
   case "flow": return flow(b);
   case "cards": {var gg=h("div",{"class":"grid "+((b.items||[]).length%3===0?"three":"two")});(b.items||[]).forEach(function(it){var cd=h("div",{"class":"card"});cd.appendChild(h("h3",null,inline(it.title)));(it.lines||[]).forEach(function(x){cd.appendChild(h("p",null,inline(x)));});gg.appendChild(cd);});return gg;}
@@ -6298,7 +6305,8 @@ function evaluate(expr,vars){var src=String(expr),i=0;
   var out=or();ws();if(i<src.length)throw new Error("Unexpected: "+src.slice(i));return out;}
 function fillTemplate(t,vars){return String(t).replace(/\{\{=\s*([^}]+)\}\}/g,function(m,e){try{var v=evaluate(e,vars);return (typeof v==="number"&&!isFinite(v))?"—":String(v);}catch(err){return "?";}});}
 /* ---------- Site navigation: every module always visible; current module expanded with its sections ---------- */
-function plainTitle(t){return esc(String(t).replace(/\[\[[^\]]+\]\]/g,"").replace(/\(\(([^)|]+)(?:\|[^)]+)?\)\)/g,"$1").replace(/\*\*/g,"").replace(/\{\{[A-Z]+\}\}/g,"").trim());}
+function plainRaw(t){return (String(t).replace(/\[\[[^\]]+\]\]/g,"").replace(/\(\(([^)|]+)(?:\|[^)]+)?\)\)/g,"$1").replace(/\*\*/g,"").replace(/\{\{[A-Z]+\}\}/g,"").replace(/\[([^\]]+)\]\([^)]+\)/g,"$1").trim());}
+function plainTitle(t){return esc(plainRaw(t));}
 function partOf(id){var m=(NAV.modules||[]).filter(function(x){return x.id===id;})[0];return m?(NAV.parts||[]).filter(function(p){return p.key===m.part;})[0]:null;}
 function applyPart(){var p=partOf(META.id);if(!p)return;document.body.style.setProperty("--pc",p.colour);document.body.style.setProperty("--pt",p.tint);
   var hd=document.querySelector("main>header p.small");if(hd){hd.innerHTML='<span class="partpill">'+esc(META.part||p.label)+'</span>';}}
@@ -6363,15 +6371,17 @@ function checker(b){var wrap=h("div",{"class":"tool checker"});if(b.title)wrap.a
 /* ---------- Explorer (searchable cards) ---------- */
 function explorer(b){var wrap=h("div",{"class":"tool explorer"});if(b.title)wrap.appendChild(h("h3",null,inline(b.title)));if(b.intro)wrap.appendChild(h("p",null,inline(b.intro)));
   var sid="x-"+Math.random().toString(36).slice(2,8);var lab=h("label",{"for":sid},esc(b.searchLabel||"Search"));var inp=h("input",{type:"search",id:sid,"class":"search"});wrap.appendChild(lab);wrap.appendChild(inp);
-  var tags={};(b.items||[]).forEach(function(it){(it.tags||[]).forEach(function(t){tags[t]=1;});});var tagRow=null,active="";
-  if(Object.keys(tags).length){tagRow=h("div",{"class":"btnrow tags",role:"group","aria-label":"Filter"});var all=h("button",{type:"button","aria-pressed":"true"},"All");tagRow.appendChild(all);
-    Object.keys(tags).forEach(function(t){var bt=h("button",{type:"button","aria-pressed":"false"},esc(t));bt.onclick=function(){active=t;[].forEach.call(tagRow.children,function(x){x.setAttribute("aria-pressed",x===bt?"true":"false");});draw();};tagRow.appendChild(bt);});
-    all.onclick=function(){active="";[].forEach.call(tagRow.children,function(x){x.setAttribute("aria-pressed",x===all?"true":"false");});draw();};wrap.appendChild(tagRow);}
+  var items=b.items||[],tagSets={},order=[];items.forEach(function(it,i){(it.tags||[]).forEach(function(t){if(!tagSets[t]){tagSets[t]=[];order.push(t);}if(tagSets[t].indexOf(i)<0)tagSets[t].push(i);});});
+  var groups=[],seenG={};order.forEach(function(t){var s=tagSets[t];if(items.length>1&&s.length===items.length)return;var k=s.join(",");if(seenG[k]!==undefined){groups[seenG[k]].labels.push(t);}else{seenG[k]=groups.length;groups.push({labels:[t],idx:s});}});
+  var tagRow=null,active=null;
+  if(groups.length){tagRow=h("div",{"class":"btnrow tags",role:"group","aria-label":"Filter"});var all=h("button",{type:"button","aria-pressed":"true"},"All");tagRow.appendChild(all);
+    groups.forEach(function(g){var bt=h("button",{type:"button","aria-pressed":"false"},esc(g.labels.join(" · ")));bt.onclick=function(){active=g;[].forEach.call(tagRow.children,function(x){x.setAttribute("aria-pressed",x===bt?"true":"false");});draw();};tagRow.appendChild(bt);});
+    all.onclick=function(){active=null;[].forEach.call(tagRow.children,function(x){x.setAttribute("aria-pressed",x===all?"true":"false");});draw();};wrap.appendChild(tagRow);}
   var list=h("div",{"class":"x-list"});wrap.appendChild(list);var count=h("p",{"class":"small","aria-live":"polite"});wrap.appendChild(count);
-  function card(it){var d=h("details",{"class":"x-item tone-"+(it.tone||"n")});d.appendChild(h("summary",null,inline(it.title)+(it.subtitle?' <span class="small">— '+inline(it.subtitle)+'</span>':'')));var inn=h("div",{"class":"inner"});
+  function card(it){var d=h("details",{"class":"x-item tone-"+(it.tone||"n")});d.appendChild(h("summary",null,'<span class="x-title">'+inline(it.title)+'</span>'+(it.subtitle?'<span class="x-sub">'+inline(it.subtitle)+'</span>':'')));var inn=h("div",{"class":"inner"});
     (it.fields||[]).forEach(function(f){inn.appendChild(h("p",null,"<strong>"+inline(f[0])+":</strong> "+inline(f[1])));});(it.blocks||[]).forEach(function(bb){inn.appendChild(block(bb));});d.appendChild(inn);return d;}
-  var cards=(b.items||[]).map(function(it){return {it:it,el:card(it),txt:JSON.stringify(it).toLowerCase()};});
-  function draw(){var q=inp.value.toLowerCase().trim();list.innerHTML="";var n=0;cards.forEach(function(c){if((q&&c.txt.indexOf(q)<0)||(active&&(c.it.tags||[]).indexOf(active)<0))return;list.appendChild(c.el);n++;});count.textContent=n+" of "+cards.length+" shown";}
+  var cards=items.map(function(it,i){return {i:i,it:it,el:card(it),txt:JSON.stringify(it).toLowerCase()};});
+  function draw(){var q=inp.value.toLowerCase().trim();list.innerHTML="";var n=0;cards.forEach(function(c){if((q&&c.txt.indexOf(q)<0)||(active&&active.idx.indexOf(c.i)<0))return;list.appendChild(c.el);n++;});count.textContent=n+" of "+cards.length+" shown";}
   inp.oninput=draw;draw();if(b.note)wrap.appendChild(h("p",{"class":"small"},inline(b.note)));return wrap;}
 /* ---------- Builder (printable plan; no identifiers) ---------- */
 function builder(b){var wrap=h("div",{"class":"tool builder"});if(b.title)wrap.appendChild(h("h3",null,inline(b.title)));if(b.intro)wrap.appendChild(h("p",null,inline(b.intro)));
