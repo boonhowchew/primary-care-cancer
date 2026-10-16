@@ -260,6 +260,9 @@ dl.gl-list dd{margin:0;max-width:none}
 /* Development records (version log, about) in small type */
 p.record{font-size:.89rem;color:var(--muted)}
 .record-box{font-size:.89rem}
+.card.partcard{border-top:6px solid var(--pc);background:var(--pt)}
+.card.partcard h3{color:var(--pc)}
+.card.partcard p{margin:.25rem 0;font-size:.94rem}
 /* Hub */
 .hub-hero{background:linear-gradient(135deg,#F5F7FA,#E6EFF8);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0 1.4rem}
 .hub-hero p{font-size:1.05rem}
@@ -856,7 +859,8 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
        "lines": [
         "[Module 1: Cancer patterns in the world and in Malaysia, and how cancer is staged](m01-cancer-patterns-staging.html)",
         "[Module 2: What causes cancer: risk factors and carcinogens](m02-causes-risk-factors.html)"
-       ]
+       ],
+       "part": "A"
       },
       {
        "title": "Part B · Prevent and detect early",
@@ -864,14 +868,16 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
         "[Module 3: Hereditary cancer risk and genetics referral](m03-hereditary-risk-genetics.html)",
         "[Module 4: Prevention in the consultation](m04-prevention.html)",
         "[Module 5: Screening and early detection](m05-screening-early-detection.html)"
-       ]
+       ],
+       "part": "B"
       },
       {
        "title": "Part C · Recognise and refer",
        "lines": [
         "[Module 6: Recognising possible cancer and referring](m06-recognise-refer.html)",
         "[Module 7: Breaking bad news and the referral conversation](m07-breaking-bad-news.html)"
-       ]
+       ],
+       "part": "C"
       },
       {
        "title": "Part D · Share care during treatment",
@@ -879,7 +885,8 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
         "[Module 8: Cancer treatments: what primary care needs to know](m08-cancer-treatments.html)",
         "[Module 9: Side-effects and toxicity triage](m09-side-effects-triage.html)",
         "[Module 10: Oncologic emergencies: recognise and act](m10-oncologic-emergencies.html)"
-       ]
+       ],
+       "part": "D"
       },
       {
        "title": "Part E · Follow up and support",
@@ -888,7 +895,8 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
         "[Module 12: Psychosocial and spiritual care](m12-psychosocial-spiritual-care.html)",
         "[Module 13: Cancer in older adults and multimorbidity](m13-older-adults-multimorbidity.html)",
         "[Module 14: Palliative and end-of-life care in primary care](m14-palliative-end-of-life.html)"
-       ]
+       ],
+       "part": "E"
       },
       {
        "title": "Tools on this page",
@@ -897,7 +905,8 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
         "[Evidence register](#register)",
         "[My CPD summary](#cpdsum)",
         "[Version log](#versions)"
-       ]
+       ],
+       "part": "O"
       }
      ]
     }
@@ -10244,11 +10253,11 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
     {
      "type": "p",
      "small": true,
-     "text": "All versions are drafts for author review; none has yet been approved for release. Latest: version 0.1.8, 16 Oct 2026."
+     "text": "All versions are drafts for author review; none has yet been approved for release. Latest: version 0.1.9, 16 Oct 2026."
     },
     {
      "type": "collapse",
-     "summary": "Show the version log (9 entries)",
+     "summary": "Show the version log (10 entries)",
      "blocks": [
       {
        "type": "table",
@@ -10309,6 +10318,11 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
          "0.1.8",
          "16 Oct 2026",
          "Module headers tidied: one line of small text (evidence date, version, time, draft status) replaces the row of badges. Version log collapsed into a compact table; authorship and AI-use notes in small type."
+        ],
+        [
+         "0.1.9",
+         "16 Oct 2026",
+         "Links between pages now display as links (they showed as raw text); Map of the modules coloured by part."
         ]
        ]
       }
@@ -14088,7 +14102,7 @@ function inline(t){
   var s=esc(t);
   s=s.replace(/\(\(([^()|]+)(?:\|([^()]+))?\)\)/g,function(m,shown,key){var k=gkey(key||shown);if(!k){console.warn("Missing glossary term "+(key||shown));return shown;}GUSED[k]=1;return '<span class="gl" role="button" tabindex="0" data-g="'+esc(k)+'" aria-expanded="false">'+shown+'</span>';});
   s=s.replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>");
-  s=s.replace(/\[([^\]]+)\]\((#[\w-]+|https?:\/\/[^\s)]+)\)/g,function(m,txt,href){var ext=href.charAt(0)!=="#";return '<a href="'+href+'"'+(ext?' rel="noopener" target="_blank"':'')+'>'+txt+(ext?'<span class="sr-only"> (opens in new tab)</span>':'')+'</a>';});
+  s=s.replace(/\[([^\]]+)\]\((#[\w-]+|https?:\/\/[^\s)]+|[\w.-]+\.html(?:#[\w-]+)?)\)/g,function(m,txt,href){var ext=/^https?:/.test(href);return '<a href="'+href+'"'+(ext?' rel="noopener" target="_blank"':'')+'>'+txt+(ext?'<span class="sr-only"> (opens in new tab)</span>':'')+'</a>';});
   s=s.replace(/\{\{(MY|INT|EO|SR)\}\}/g,function(m,k){return '<span class="chip '+CHIP[k][0]+'" title="'+CHIP[k][1]+'">'+(k==="SR"?"Evidence":k==="EO"?"Expert opinion":k==="MY"?"Malaysia":"International")+'</span>';});
   s=s.replace(/\[\[([A-Za-z0-9_,\s-]+)\]\]/g,function(m,ids){
     return ids.split(",").map(function(id){id=id.trim();if(!S[id]){console.warn("Missing source "+id);return '<sup class="cite">[?'+esc(id)+']</sup>';}
@@ -14119,7 +14133,7 @@ function block(b){
     var tb=h("tbody");(b.rows||[]).forEach(function(r){var row=h("tr");r.forEach(function(cell,ci){var m=/^!(e|s|r) (.*)$/.exec(cell);var td=h(ci===0?"th":"td",ci===0?{scope:"row","data-label":plainRaw((b.head||[])[ci]||"")}:{"data-label":plainRaw((b.head||[])[ci]||"")});
       if(m){td.innerHTML='<span class="urg '+m[1]+'">'+({e:"⬤ ",s:"◐ ",r:"○ "})[m[1]]+inline(m[2])+'</span>';}else td.innerHTML=inline(cell);row.appendChild(td);});tb.appendChild(row);});t.appendChild(tb);tw.appendChild(t);return tw;}
   case "flow": return flow(b);
-  case "cards": {var gg=h("div",{"class":"grid "+((b.items||[]).length%3===0?"three":"two")});(b.items||[]).forEach(function(it){var cd=h("div",{"class":"card"});cd.appendChild(h("h3",null,inline(it.title)));(it.lines||[]).forEach(function(x){cd.appendChild(h("p",null,inline(x)));});gg.appendChild(cd);});return gg;}
+  case "cards": {var gg=h("div",{"class":"grid "+((b.items||[]).length%3===0?"three":"two")});(b.items||[]).forEach(function(it){var pp=it.part?(NAV.parts||[]).filter(function(p){return p.key===it.part;})[0]:null;var cd=h("div",{"class":"card"+(pp?" partcard":"")});if(pp){cd.style.setProperty("--pc",pp.colour);cd.style.setProperty("--pt",pp.tint);}cd.appendChild(h("h3",null,inline(it.title)));(it.lines||[]).forEach(function(x){cd.appendChild(h("p",null,inline(x)));});gg.appendChild(cd);});return gg;}
   case "stat": {var g3=h("div",{"class":"grid "+(((b.items||[]).length%3===0)?"three":"two")+" stats"});(b.items||[]).forEach(function(it){var cd=h("div",{"class":"card stat tone-"+(it.tone||"n")});cd.innerHTML='<div class="sv">'+inline(it.value)+'</div><div class="sl">'+inline(it.label)+'</div>';g3.appendChild(cd);});var w3=h("figure");if(b.title)w3.appendChild(h("div",{"class":"compare-title"},inline(b.title)));w3.appendChild(g3);if(b.caption)w3.appendChild(h("figcaption",null,inline(b.caption)));return w3;}
   case "bar": return barChart(b);
   case "iconArray": return iconArray(b);
