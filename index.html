@@ -83,8 +83,8 @@ sup.cite a{font-size:.72rem;text-decoration:none;padding:0 .1rem}
 .compare-title{font-weight:700;color:var(--int);margin-top:1rem}
 /* Tables */
 .tablewrap{overflow-x:auto;margin:1rem 0;border:1px solid var(--line);border-radius:var(--radius)}
-table{border-collapse:collapse;width:100%;font-size:.89rem;table-layout:fixed}
-th,td{overflow-wrap:break-word;hyphens:manual}
+table{border-collapse:collapse;width:100%;font-size:.89rem;table-layout:auto}
+th,td{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
 tbody th{font-weight:600}
 th,td{padding:.55rem .7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 thead th{background:var(--navy);color:#fff;position:sticky;top:0}
@@ -229,9 +229,9 @@ main>header{border-left:6px solid var(--pc);padding-left:1rem}
   .takehome{background:#fff;color:#000;border:2px solid #000} .takehome h2{color:#000}
 }
 /* ---- v1.1 additions: glossary pop-ups, infographics, tools ---- */
-button.gl{all:unset;cursor:help;border-bottom:2px dotted var(--int);color:inherit;font:inherit;min-height:0;padding:0}
-button.gl:hover,button.gl[aria-expanded="true"]{background:var(--int-bg)}
-button.gl:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
+.gl{cursor:help;border-bottom:2px dotted var(--int);color:inherit}
+.gl:hover,.gl[aria-expanded="true"]{background:var(--int-bg)}
+.gl:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
 .gl-pop{position:absolute;z-index:50;max-width:22rem;background:#fff;border:2px solid var(--int);border-radius:var(--radius);box-shadow:0 6px 24px rgba(0,0,0,.18);padding:.7rem 2.2rem .7rem .9rem;font-size:.89rem;line-height:1.5}
 .gl-pop .gl-term{font-weight:700;color:var(--int);margin-bottom:.2rem}
 .gl-pop .gl-close{position:absolute;top:.25rem;right:.3rem;min-height:0;padding:.1rem .45rem;border:0;font-size:1.2rem;line-height:1;background:transparent;color:var(--muted)}
@@ -264,7 +264,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
 .tags button[aria-pressed="true"]{background:var(--navy);color:#fff}
 .x-list details.x-item{border-left:6px solid var(--line)} .x-item.tone-e{border-left-color:var(--red)} .x-item.tone-s{border-left-color:var(--amber)} .x-item.tone-r{border-left-color:var(--green)} .x-item.tone-i{border-left-color:var(--int)} .x-item.tone-m{border-left-color:var(--my)}
 .plan dl{display:grid;grid-template-columns:minmax(8rem,14rem) 1fr;gap:.3rem 1rem} .plan dt{font-weight:700} .plan dd{margin:0}
-@media print{button.gl{border:0}.gl-pop{display:none}.tool form{display:none}.infographic{break-inside:avoid}}
+@media print{.gl{border:0}.gl-pop{display:none}.tool form{display:none}.infographic{break-inside:avoid}}
 
 </style>
 </head>
