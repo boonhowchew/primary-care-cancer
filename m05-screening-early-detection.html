@@ -200,6 +200,24 @@ main>header{border-left:6px solid var(--pc);padding-left:1rem}
 .x-item>summary{display:list-item;cursor:pointer}
 .x-item>summary .x-title{display:block;font-weight:700}
 .x-item>summary .x-sub{display:block;font-size:.89rem;font-weight:400;color:var(--muted);margin-top:.1rem}
+/* Link buttons */
+a.btn{display:inline-flex;align-items:center;text-decoration:none;font-weight:600}
+a.btn:hover{background:var(--panel)}
+a.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+a.btn.primary:hover{background:var(--navy-2);color:#fff}
+/* About the author */
+.site-head nav .author-btn{background:none;border:0;padding:0;margin-left:1rem;min-height:0;font:inherit;font-weight:500;color:#fff;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.site-head nav .author-btn:hover{color:#E6EFF8}
+dialog.author-dlg{max-width:min(560px,94vw);width:100%;border:0;border-radius:var(--radius);padding:1rem 1.3rem 1.1rem;box-shadow:0 12px 48px rgba(0,0,0,.3)}
+dialog.author-dlg::backdrop{background:rgba(15,23,42,.55)}
+.au-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);margin-bottom:.6rem}
+.au-top h2{margin:.1rem 0 .4rem;border:0;padding:0;font-size:1.11rem}
+.au-close{background:var(--panel);border:1px solid var(--line);border-radius:8px;font:inherit;padding:.25rem .7rem;cursor:pointer}
+.au-name{font-size:1.11rem;font-weight:700;color:var(--navy);margin:0}
+.au-q{color:var(--muted);margin:.1rem 0 .5rem}
+.author-dlg p,.hub-author p{margin:.35rem 0}
+.hub-author{border-top:1px solid var(--line);padding:.6rem 0 0;margin:1.6rem 0 0}
+@media print{.author-btn,dialog.author-dlg{display:none!important}}
 /* Hub */
 .hub-hero{background:linear-gradient(135deg,#F5F7FA,#E6EFF8);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1rem 0 1.4rem}
 .hub-hero p{font-size:1.05rem}
@@ -274,7 +292,7 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
   <div class="wrap">
     <a href="index.html">Primary Care for Cancers</a>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="toc">☰ Modules</button>
-    <nav aria-label="Site"><a href="index.html">Home</a><a href="m00-start-here.html#glossary">Glossary</a><a href="#references">References</a><a href="m14-palliative-end-of-life.html#help">Where to get help</a></nav>
+    <nav aria-label="Site"><a href="index.html">Home</a><button type="button" class="author-btn" aria-haspopup="dialog" aria-controls="author-dlg">About the author</button><a href="m00-start-here.html#glossary">Glossary</a><a href="#references">References</a><a href="m14-palliative-end-of-life.html#help">Where to get help</a></nav>
   </div>
 </header>
 <div class="disclaimer" role="note">
@@ -287,12 +305,38 @@ input[type=number],input[type=text],input[type=search],select{font:inherit;paddi
 <footer class="site-foot">
   <div class="wrap">
     <p id="foot-meta"></p>
-    <p><strong>Author:</strong> Prof Dr Boon-How Chew, Consultant Family Medicine Specialist, Department of Family Medicine, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia. Based on the author's ebook <em>Primary Care for Cancers</em> (v4R2025) and earlier published narrative reviews (2013, 2014).</p>
+    <p><strong>Author:</strong> <a href="#" class="author-link">Prof Dr Boon-How Chew</a>, Consultant Family Medicine Specialist, Department of Family Medicine, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia. Based on the author's ebook <em>Primary Care for Cancers</em> (v4R2025) and earlier published narrative reviews (2013, 2014).</p>
     <p><strong>Disclaimer:</strong> an educational resource that does not replace local guidelines, specialist advice or clinical judgement. Drug doses shown for awareness are labelled; always check the current local formulary and protocol.</p>
     <p><strong>Privacy:</strong> no external requests, cookies or analytics. Your progress and notes are stored only in this browser.</p>
     <p><strong>AI use:</strong> drafting and evidence checking were assisted by an AI system under the author's direction; all content is reviewed and approved by the author. Licence: CC BY-NC 4.0 (proposed, to be confirmed by the author).</p>
   </div>
 </footer>
+<script type="application/json" id="pcc-author">
+{
+ "name": "Prof Dr Boon-How Chew",
+ "nameLocal": "",
+ "qualifications": "MD (USM), MMed Family Medicine (UM), PhD (Utrecht)",
+ "role": "Professor of Family Medicine and Consultant Family Medicine Specialist",
+ "affiliation": "Department of Family Medicine, Faculty of Medicine and Health Sciences, Universiti Putra Malaysia",
+ "email": "chewboonhow@gmail.com",
+ "summary": "",
+ "links": [
+  [
+   "UPM profile",
+   "https://profile.upm.edu.my/chewboonhow"
+  ],
+  [
+   "ORCID",
+   "https://orcid.org/0000-0002-8627-6248"
+  ],
+  [
+   "Google Scholar",
+   "https://scholar.google.com/citations?user=GFZ9z5gAAAAJ"
+  ]
+ ],
+ "note": "Comments and corrections are welcome by email."
+}
+</script>
 <script type="application/json" id="pcc-nav">
 {
  "parts": [
@@ -7196,7 +7240,7 @@ function $(s,r){return (r||document).querySelector(s);}
 function readJSON(id){var n=document.getElementById(id);if(!n)return null;try{return JSON.parse(n.textContent);}catch(e){console.error("Bad JSON in #"+id,e);showError("Content block #"+id+" could not be read.");return null;}}
 function showError(msg){var m=document.getElementById("main");if(m){var d=document.createElement("div");d.className="callout dont";d.setAttribute("role","alert");d.textContent=msg;m.prepend(d);}}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-var C=readJSON("pcc-content")||{}, S=readJSON("pcc-sources")||{}, D=readJSON("pcc-directory"), G=readJSON("pcc-glossary")||{}, NAV=readJSON("pcc-nav")||{parts:[],modules:[]};
+var C=readJSON("pcc-content")||{}, S=readJSON("pcc-sources")||{}, D=readJSON("pcc-directory"), G=readJSON("pcc-glossary")||{}, NAV=readJSON("pcc-nav")||{parts:[],modules:[]}, AUTH=readJSON("pcc-author");
 var GUSED={};
 function gkey(k){k=String(k).toLowerCase().trim();if(G[k])return k;for(var x in G){if((G[x].aliases||[]).map(function(a){return a.toLowerCase();}).indexOf(k)>=0)return x;}return null;}
 var META=C.meta||{}, KEY="pcc:"+(META.id||"module");
@@ -7338,6 +7382,17 @@ function siteNav(tn,toc){tn.innerHTML="";tn.setAttribute("aria-label","Modules a
   var tg=document.querySelector(".nav-toggle");if(tg){tg.onclick=function(){var o=document.body.classList.toggle("nav-open");tg.setAttribute("aria-expanded",o?"true":"false");if(o)cl.focus();};}
   document.addEventListener("keydown",function(ev){if(ev.key==="Escape"&&document.body.classList.contains("nav-open")){document.body.classList.remove("nav-open");if(tg)tg.focus();}});
   applyPart();}
+/* ---------- About the author (dialog on every page; data in pcc-author) ---------- */
+function authorHTML(a){var L=(a.links||[]).map(function(l){return '<a href="'+esc(l[1])+'" rel="noopener" target="_blank">'+esc(l[0])+'<span class="sr-only"> (opens in new tab)</span></a>';}).join(' · ');
+  return '<p class="au-name">'+esc(a.name)+'</p><p class="au-q">'+esc(a.qualifications)+'</p><p>'+esc(a.role)+', '+esc(a.affiliation)+'.</p>'+
+   '<p><strong>Email:</strong> <a href="mailto:'+esc(a.email)+'">'+esc(a.email)+'</a>'+(a.note?' — '+esc(a.note):'')+'</p>'+(L?'<p class="au-links">'+L+'</p>':'');}
+function authorDialog(){if(!AUTH)return;var d=h("dialog",{id:"author-dlg","class":"author-dlg","aria-labelledby":"author-dlg-h"});
+  d.innerHTML='<div class="au-top"><h2 id="author-dlg-h">About the author</h2><button type="button" class="au-close" aria-label="Close">Close ✕</button></div>'+authorHTML(AUTH);document.body.appendChild(d);
+  function open(ev){if(ev)ev.preventDefault();if(d.showModal){try{d.showModal();}catch(e){d.setAttribute("open","");}}else d.setAttribute("open","");var c=d.querySelector(".au-close");if(c)c.focus();}
+  function close(){if(d.close){try{d.close();}catch(e){}}d.removeAttribute("open");var b=document.querySelector(".author-btn");if(b)b.focus();}
+  d.querySelector(".au-close").onclick=close;d.addEventListener("click",function(ev){if(ev.target===d)close();});
+  d.addEventListener("keydown",function(ev){if(ev.key==="Escape"){ev.preventDefault();close();}});
+  [].forEach.call(document.querySelectorAll(".author-btn,.author-link"),function(b){b.addEventListener("click",open);});}
 /* ---------- CPD summary across modules (reads this browser's localStorage only) ---------- */
 function cpdSummary(b){var w=h("div",{"class":"tool cpdsum"});if(b.title)w.appendChild(h("h3",null,inline(b.title)));
   w.appendChild(h("p",null,inline(b.intro||"Your record is read from this browser only. Nothing is sent anywhere.")));
@@ -7543,6 +7598,7 @@ function build(){
   termsUsed(m);
   var rs=sec("references","References");rs.classList.add("refs");rs.appendChild(h("p",{"class":"small"},"Numbered in order of first citation. Each entry shows the date it was last verified."));references(rs);
   var tn=$("#toc");if(tn){siteNav(tn,toc);}
+  authorDialog();
   var f=$("#foot-meta");if(f)f.innerHTML=esc((META.title||"")+" · Version "+(META.version||"")+" · Evidence last verified "+(META.verified||"")+" · Engine "+ENGINE_VERSION);
 }
 window.addEventListener("beforeprint",function(){[].forEach.call(document.querySelectorAll("details"),function(d){d.dataset.wasOpen=d.open?"1":"";d.open=true;});});
